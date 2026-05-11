@@ -1,5 +1,9 @@
-## postgreSQL credentials
-credentials for configuring your local pgAdmin .env file:
+# 🗄️ Database Setup Instructions
+
+To get the Food Bank project running on your local machine, follow these steps:
+
+### 1. PostgreSQL Connection Details
+Use these credentials when configuring your local pgAdmin or the application's `.env` file:
 
 | Property | Value |
 | :--- | :--- |
