@@ -1,3 +1,18 @@
+##  New Features in v1.1
+* **Authentication Ready:** The `users` table now supports hashed passwords (`password_hash`).
+* **Automated Stock Tracking:** The new `view_inventory_status` allows the backend to get current stock levels without manual math.
+
+##  Smart Views
+To see live inventory totals, run:
+`SELECT * FROM view_inventory_status;`
+
+##  Test Accounts
+| Name | Email | Password (Testing) | Role |
+| :--- | :--- | :--- | :--- |
+| Nikolai | nikolai@fontys.nl | password123 | Admin |
+| Andy | andy@fontys.nl | password123 | Volunteer |
+| Nicholas | nicholas@fontys.nl | password123 | Manager |
+
 #  Database Documentation: Version 1.0
 
 This document provides an overview of the current database structure and the test data pre-loaded for the Food Bank project.
