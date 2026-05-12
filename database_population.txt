@@ -1,0 +1,12 @@
+current list of things within the database;
+
+
+
+Table Name,Description,Current Data Included
+role,Defines user permissions.,"Admin, Volunteer, Manager"
+users,Project team members.,"Nikolai, Andy, Nicholas (Test accounts)"
+category,Food groupings.,"Canned Goods, Fresh Produce, Dairy, Bakery, Frozen Food"
+inventory_item,The specific products.,"14 items (Milk, Eggs, Peanut Butter, Spinach, etc.)"
+transaction,Stock movements (IN/OUT).,Initial stock for Peanut Butter and Eggs; sample distributions
+shift,Operation hours.,"3 shifts scheduled for May 15-16, 2026"
+shift_volunteer,Who is working when.,Nikolai & Andy confirmed for the first morning shift
