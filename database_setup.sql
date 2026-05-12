@@ -2,11 +2,10 @@
 -- PostgreSQL database dump
 --
 
-
 -- Dumped from database version 18.3
 -- Dumped by pg_dump version 18.3
 
--- Started on 2026-05-12 08:21:28
+-- Started on 2026-05-12 08:52:25
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -50,7 +49,7 @@ CREATE SEQUENCE public.category_category_id_seq
 
 
 --
--- TOC entry 5080 (class 0 OID 0)
+-- TOC entry 5090 (class 0 OID 0)
 -- Dependencies: 221
 -- Name: category_category_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
@@ -86,7 +85,7 @@ CREATE SEQUENCE public.inventory_item_item_id_seq
 
 
 --
--- TOC entry 5081 (class 0 OID 0)
+-- TOC entry 5091 (class 0 OID 0)
 -- Dependencies: 227
 -- Name: inventory_item_item_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
@@ -120,7 +119,7 @@ CREATE SEQUENCE public.role_role_id_seq
 
 
 --
--- TOC entry 5082 (class 0 OID 0)
+-- TOC entry 5092 (class 0 OID 0)
 -- Dependencies: 219
 -- Name: role_role_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
@@ -156,7 +155,7 @@ CREATE SEQUENCE public.shift_shift_id_seq
 
 
 --
--- TOC entry 5083 (class 0 OID 0)
+-- TOC entry 5093 (class 0 OID 0)
 -- Dependencies: 223
 -- Name: shift_shift_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
@@ -207,7 +206,7 @@ CREATE SEQUENCE public.transaction_transaction_id_seq
 
 
 --
--- TOC entry 5084 (class 0 OID 0)
+-- TOC entry 5094 (class 0 OID 0)
 -- Dependencies: 230
 -- Name: transaction_transaction_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
@@ -224,7 +223,8 @@ CREATE TABLE public.users (
     user_id integer NOT NULL,
     name character varying(100) NOT NULL,
     email character varying(255) NOT NULL,
-    role_id integer
+    role_id integer,
+    password_hash character varying(255)
 );
 
 
@@ -243,7 +243,7 @@ CREATE SEQUENCE public.users_user_id_seq
 
 
 --
--- TOC entry 5085 (class 0 OID 0)
+-- TOC entry 5095 (class 0 OID 0)
 -- Dependencies: 225
 -- Name: users_user_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
@@ -252,7 +252,58 @@ ALTER SEQUENCE public.users_user_id_seq OWNED BY public.users.user_id;
 
 
 --
--- TOC entry 4886 (class 2604 OID 16592)
+-- TOC entry 232 (class 1259 OID 16676)
+-- Name: view_current_inventory; Type: VIEW; Schema: public; Owner: -
+--
+
+CREATE VIEW public.view_current_inventory AS
+ SELECT i.item_id,
+    i.item_name,
+    c.name AS category,
+    (COALESCE(sum(
+        CASE
+            WHEN ((t.transaction_type)::text = 'IN'::text) THEN t.quantity_base_units
+            ELSE (0)::numeric
+        END), (0)::numeric) - COALESCE(sum(
+        CASE
+            WHEN ((t.transaction_type)::text = 'OUT'::text) THEN t.quantity_base_units
+            ELSE (0)::numeric
+        END), (0)::numeric)) AS current_stock,
+    i.base_unit
+   FROM ((public.inventory_item i
+     LEFT JOIN public.category c ON ((i.category_id = c.category_id)))
+     LEFT JOIN public.transaction t ON ((i.item_id = t.item_id)))
+  GROUP BY i.item_id, i.item_name, c.name, i.base_unit;
+
+
+--
+-- TOC entry 233 (class 1259 OID 16681)
+-- Name: view_inventory_status; Type: VIEW; Schema: public; Owner: -
+--
+
+CREATE VIEW public.view_inventory_status AS
+ SELECT i.item_id,
+    i.item_name,
+    c.name AS category_name,
+    (COALESCE(sum(
+        CASE
+            WHEN ((t.transaction_type)::text = 'IN'::text) THEN t.quantity_base_units
+            ELSE (0)::numeric
+        END), (0)::numeric) - COALESCE(sum(
+        CASE
+            WHEN ((t.transaction_type)::text = 'OUT'::text) THEN t.quantity_base_units
+            ELSE (0)::numeric
+        END), (0)::numeric)) AS current_stock,
+    i.base_unit
+   FROM ((public.inventory_item i
+     LEFT JOIN public.category c ON ((i.category_id = c.category_id)))
+     LEFT JOIN public.transaction t ON ((i.item_id = t.item_id)))
+  GROUP BY i.item_id, i.item_name, c.name, i.base_unit
+  ORDER BY i.item_name;
+
+
+--
+-- TOC entry 4894 (class 2604 OID 16592)
 -- Name: category category_id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -260,7 +311,7 @@ ALTER TABLE ONLY public.category ALTER COLUMN category_id SET DEFAULT nextval('p
 
 
 --
--- TOC entry 4889 (class 2604 OID 16629)
+-- TOC entry 4897 (class 2604 OID 16629)
 -- Name: inventory_item item_id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -268,7 +319,7 @@ ALTER TABLE ONLY public.inventory_item ALTER COLUMN item_id SET DEFAULT nextval(
 
 
 --
--- TOC entry 4885 (class 2604 OID 16583)
+-- TOC entry 4893 (class 2604 OID 16583)
 -- Name: role role_id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -276,7 +327,7 @@ ALTER TABLE ONLY public.role ALTER COLUMN role_id SET DEFAULT nextval('public.ro
 
 
 --
--- TOC entry 4887 (class 2604 OID 16601)
+-- TOC entry 4895 (class 2604 OID 16601)
 -- Name: shift shift_id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -284,7 +335,7 @@ ALTER TABLE ONLY public.shift ALTER COLUMN shift_id SET DEFAULT nextval('public.
 
 
 --
--- TOC entry 4891 (class 2604 OID 16662)
+-- TOC entry 4899 (class 2604 OID 16662)
 -- Name: transaction transaction_id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -292,7 +343,7 @@ ALTER TABLE ONLY public.transaction ALTER COLUMN transaction_id SET DEFAULT next
 
 
 --
--- TOC entry 4888 (class 2604 OID 16612)
+-- TOC entry 4896 (class 2604 OID 16612)
 -- Name: users user_id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -300,98 +351,98 @@ ALTER TABLE ONLY public.users ALTER COLUMN user_id SET DEFAULT nextval('public.u
 
 
 --
--- TOC entry 5065 (class 0 OID 16589)
+-- TOC entry 5075 (class 0 OID 16589)
 -- Dependencies: 222
 -- Data for Name: category; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-INSERT INTO public.category (category_id, name) VALUES (1, 'Canned Goods');
-INSERT INTO public.category (category_id, name) VALUES (2, 'Fresh Produce');
-INSERT INTO public.category (category_id, name) VALUES (3, 'Dairy');
-INSERT INTO public.category (category_id, name) VALUES (4, 'Bakery');
-INSERT INTO public.category (category_id, name) VALUES (5, 'Frozen Food');
+INSERT INTO public.category VALUES (1, 'Canned Goods');
+INSERT INTO public.category VALUES (2, 'Fresh Produce');
+INSERT INTO public.category VALUES (3, 'Dairy');
+INSERT INTO public.category VALUES (4, 'Bakery');
+INSERT INTO public.category VALUES (5, 'Frozen Food');
 
 
 --
--- TOC entry 5071 (class 0 OID 16626)
+-- TOC entry 5081 (class 0 OID 16626)
 -- Dependencies: 228
 -- Data for Name: inventory_item; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-INSERT INTO public.inventory_item (item_id, item_name, category_id, base_unit) VALUES (1, 'Whole Milk', 3, 'Liters');
-INSERT INTO public.inventory_item (item_id, item_name, category_id, base_unit) VALUES (2, 'Cheddar Cheese', 3, 'kg');
-INSERT INTO public.inventory_item (item_id, item_name, category_id, base_unit) VALUES (3, 'Canned Tomatoes', 1, 'Cans');
-INSERT INTO public.inventory_item (item_id, item_name, category_id, base_unit) VALUES (4, 'Black Beans', 1, 'Cans');
-INSERT INTO public.inventory_item (item_id, item_name, category_id, base_unit) VALUES (5, 'Red Apples', 2, 'kg');
-INSERT INTO public.inventory_item (item_id, item_name, category_id, base_unit) VALUES (6, 'Whole Wheat Bread', 4, 'Loaves');
-INSERT INTO public.inventory_item (item_id, item_name, category_id, base_unit) VALUES (7, 'Peanut Butter', 1, 'Jars');
-INSERT INTO public.inventory_item (item_id, item_name, category_id, base_unit) VALUES (8, 'Brown Rice', 1, 'kg');
-INSERT INTO public.inventory_item (item_id, item_name, category_id, base_unit) VALUES (9, 'Large Eggs', 3, 'Cartons');
-INSERT INTO public.inventory_item (item_id, item_name, category_id, base_unit) VALUES (10, 'Greek Yogurt', 3, 'Tubs');
-INSERT INTO public.inventory_item (item_id, item_name, category_id, base_unit) VALUES (11, 'Bananas', 2, 'Bunches');
-INSERT INTO public.inventory_item (item_id, item_name, category_id, base_unit) VALUES (12, 'Spinach', 2, 'Bags');
-INSERT INTO public.inventory_item (item_id, item_name, category_id, base_unit) VALUES (13, 'Chicken Thighs', 5, 'kg');
-INSERT INTO public.inventory_item (item_id, item_name, category_id, base_unit) VALUES (14, 'Frozen Pizza', 5, 'Boxes');
+INSERT INTO public.inventory_item VALUES (1, 'Whole Milk', 3, 'Liters');
+INSERT INTO public.inventory_item VALUES (2, 'Cheddar Cheese', 3, 'kg');
+INSERT INTO public.inventory_item VALUES (3, 'Canned Tomatoes', 1, 'Cans');
+INSERT INTO public.inventory_item VALUES (4, 'Black Beans', 1, 'Cans');
+INSERT INTO public.inventory_item VALUES (5, 'Red Apples', 2, 'kg');
+INSERT INTO public.inventory_item VALUES (6, 'Whole Wheat Bread', 4, 'Loaves');
+INSERT INTO public.inventory_item VALUES (7, 'Peanut Butter', 1, 'Jars');
+INSERT INTO public.inventory_item VALUES (8, 'Brown Rice', 1, 'kg');
+INSERT INTO public.inventory_item VALUES (9, 'Large Eggs', 3, 'Cartons');
+INSERT INTO public.inventory_item VALUES (10, 'Greek Yogurt', 3, 'Tubs');
+INSERT INTO public.inventory_item VALUES (11, 'Bananas', 2, 'Bunches');
+INSERT INTO public.inventory_item VALUES (12, 'Spinach', 2, 'Bags');
+INSERT INTO public.inventory_item VALUES (13, 'Chicken Thighs', 5, 'kg');
+INSERT INTO public.inventory_item VALUES (14, 'Frozen Pizza', 5, 'Boxes');
 
 
 --
--- TOC entry 5063 (class 0 OID 16580)
+-- TOC entry 5073 (class 0 OID 16580)
 -- Dependencies: 220
 -- Data for Name: role; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-INSERT INTO public.role (role_id, role_name) VALUES (1, 'Admin');
-INSERT INTO public.role (role_id, role_name) VALUES (2, 'Volunteer');
-INSERT INTO public.role (role_id, role_name) VALUES (3, 'Manager');
+INSERT INTO public.role VALUES (1, 'Admin');
+INSERT INTO public.role VALUES (2, 'Volunteer');
+INSERT INTO public.role VALUES (3, 'Manager');
 
 
 --
--- TOC entry 5067 (class 0 OID 16598)
+-- TOC entry 5077 (class 0 OID 16598)
 -- Dependencies: 224
 -- Data for Name: shift; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-INSERT INTO public.shift (shift_id, start_time, end_time, required_volunteers) VALUES (1, '2026-05-15 09:00:00', '2026-05-15 13:00:00', 4);
-INSERT INTO public.shift (shift_id, start_time, end_time, required_volunteers) VALUES (2, '2026-05-15 13:00:00', '2026-05-15 17:00:00', 3);
-INSERT INTO public.shift (shift_id, start_time, end_time, required_volunteers) VALUES (3, '2026-05-16 10:00:00', '2026-05-16 14:00:00', 5);
+INSERT INTO public.shift VALUES (1, '2026-05-15 09:00:00', '2026-05-15 13:00:00', 4);
+INSERT INTO public.shift VALUES (2, '2026-05-15 13:00:00', '2026-05-15 17:00:00', 3);
+INSERT INTO public.shift VALUES (3, '2026-05-16 10:00:00', '2026-05-16 14:00:00', 5);
 
 
 --
--- TOC entry 5072 (class 0 OID 16640)
+-- TOC entry 5082 (class 0 OID 16640)
 -- Dependencies: 229
 -- Data for Name: shift_volunteer; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-INSERT INTO public.shift_volunteer (shift_id, user_id, status) VALUES (1, 1, 'confirmed');
-INSERT INTO public.shift_volunteer (shift_id, user_id, status) VALUES (1, 2, 'confirmed');
-INSERT INTO public.shift_volunteer (shift_id, user_id, status) VALUES (2, 1, 'scheduled');
+INSERT INTO public.shift_volunteer VALUES (1, 1, 'confirmed');
+INSERT INTO public.shift_volunteer VALUES (1, 2, 'confirmed');
+INSERT INTO public.shift_volunteer VALUES (2, 1, 'scheduled');
 
 
 --
--- TOC entry 5074 (class 0 OID 16659)
+-- TOC entry 5084 (class 0 OID 16659)
 -- Dependencies: 231
 -- Data for Name: transaction; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-INSERT INTO public.transaction (transaction_id, item_id, quantity_base_units, transaction_type, expiry_date, created_at) VALUES (1, 7, 20.00, 'IN', '2026-10-01', '2026-05-12 08:18:27.091477');
-INSERT INTO public.transaction (transaction_id, item_id, quantity_base_units, transaction_type, expiry_date, created_at) VALUES (2, 7, 2.00, 'OUT', NULL, '2026-05-12 08:18:27.091477');
-INSERT INTO public.transaction (transaction_id, item_id, quantity_base_units, transaction_type, expiry_date, created_at) VALUES (3, 9, 12.00, 'IN', '2026-05-20', '2026-05-12 08:18:27.091477');
-INSERT INTO public.transaction (transaction_id, item_id, quantity_base_units, transaction_type, expiry_date, created_at) VALUES (4, 9, 4.00, 'OUT', NULL, '2026-05-12 08:18:27.091477');
+INSERT INTO public.transaction VALUES (1, 7, 20.00, 'IN', '2026-10-01', '2026-05-12 08:18:27.091477');
+INSERT INTO public.transaction VALUES (2, 7, 2.00, 'OUT', NULL, '2026-05-12 08:18:27.091477');
+INSERT INTO public.transaction VALUES (3, 9, 12.00, 'IN', '2026-05-20', '2026-05-12 08:18:27.091477');
+INSERT INTO public.transaction VALUES (4, 9, 4.00, 'OUT', NULL, '2026-05-12 08:18:27.091477');
 
 
 --
--- TOC entry 5069 (class 0 OID 16609)
+-- TOC entry 5079 (class 0 OID 16609)
 -- Dependencies: 226
 -- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-INSERT INTO public.users (user_id, name, email, role_id) VALUES (1, 'Nikolai TEST', 'nikolai@fontys.nl', 1);
-INSERT INTO public.users (user_id, name, email, role_id) VALUES (2, 'Andy TEST', 'andy@fontys.nl', 2);
-INSERT INTO public.users (user_id, name, email, role_id) VALUES (3, 'Nicholas TEST', 'nicholas@fontys.nl', 3);
+INSERT INTO public.users VALUES (1, 'Nikolai TEST', 'nikolai@fontys.nl', 1, '$2b$12$KIXvTrZ.oZ9H.f3BfXN4uO7pXfX.XfX.XfX.XfX.XfX.XfX.XfX.');
+INSERT INTO public.users VALUES (2, 'Andy TEST', 'andy@fontys.nl', 2, '$2b$12$KIXvTrZ.oZ9H.f3BfXN4uO7pXfX.XfX.XfX.XfX.XfX.XfX.XfX.');
+INSERT INTO public.users VALUES (3, 'Nicholas TEST', 'nicholas@fontys.nl', 3, '$2b$12$KIXvTrZ.oZ9H.f3BfXN4uO7pXfX.XfX.XfX.XfX.XfX.XfX.XfX.');
 
 
 --
--- TOC entry 5086 (class 0 OID 0)
+-- TOC entry 5096 (class 0 OID 0)
 -- Dependencies: 221
 -- Name: category_category_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
@@ -400,7 +451,7 @@ SELECT pg_catalog.setval('public.category_category_id_seq', 5, true);
 
 
 --
--- TOC entry 5087 (class 0 OID 0)
+-- TOC entry 5097 (class 0 OID 0)
 -- Dependencies: 227
 -- Name: inventory_item_item_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
@@ -409,7 +460,7 @@ SELECT pg_catalog.setval('public.inventory_item_item_id_seq', 14, true);
 
 
 --
--- TOC entry 5088 (class 0 OID 0)
+-- TOC entry 5098 (class 0 OID 0)
 -- Dependencies: 219
 -- Name: role_role_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
@@ -418,7 +469,7 @@ SELECT pg_catalog.setval('public.role_role_id_seq', 3, true);
 
 
 --
--- TOC entry 5089 (class 0 OID 0)
+-- TOC entry 5099 (class 0 OID 0)
 -- Dependencies: 223
 -- Name: shift_shift_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
@@ -427,7 +478,7 @@ SELECT pg_catalog.setval('public.shift_shift_id_seq', 3, true);
 
 
 --
--- TOC entry 5090 (class 0 OID 0)
+-- TOC entry 5100 (class 0 OID 0)
 -- Dependencies: 230
 -- Name: transaction_transaction_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
@@ -436,7 +487,7 @@ SELECT pg_catalog.setval('public.transaction_transaction_id_seq', 4, true);
 
 
 --
--- TOC entry 5091 (class 0 OID 0)
+-- TOC entry 5101 (class 0 OID 0)
 -- Dependencies: 225
 -- Name: users_user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
@@ -445,7 +496,7 @@ SELECT pg_catalog.setval('public.users_user_id_seq', 3, true);
 
 
 --
--- TOC entry 4897 (class 2606 OID 16596)
+-- TOC entry 4905 (class 2606 OID 16596)
 -- Name: category category_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -454,7 +505,7 @@ ALTER TABLE ONLY public.category
 
 
 --
--- TOC entry 4905 (class 2606 OID 16634)
+-- TOC entry 4913 (class 2606 OID 16634)
 -- Name: inventory_item inventory_item_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -463,7 +514,7 @@ ALTER TABLE ONLY public.inventory_item
 
 
 --
--- TOC entry 4895 (class 2606 OID 16587)
+-- TOC entry 4903 (class 2606 OID 16587)
 -- Name: role role_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -472,7 +523,7 @@ ALTER TABLE ONLY public.role
 
 
 --
--- TOC entry 4899 (class 2606 OID 16607)
+-- TOC entry 4907 (class 2606 OID 16607)
 -- Name: shift shift_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -481,7 +532,7 @@ ALTER TABLE ONLY public.shift
 
 
 --
--- TOC entry 4907 (class 2606 OID 16647)
+-- TOC entry 4915 (class 2606 OID 16647)
 -- Name: shift_volunteer shift_volunteer_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -490,7 +541,7 @@ ALTER TABLE ONLY public.shift_volunteer
 
 
 --
--- TOC entry 4909 (class 2606 OID 16668)
+-- TOC entry 4917 (class 2606 OID 16668)
 -- Name: transaction transaction_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -499,7 +550,7 @@ ALTER TABLE ONLY public.transaction
 
 
 --
--- TOC entry 4901 (class 2606 OID 16619)
+-- TOC entry 4909 (class 2606 OID 16619)
 -- Name: users users_email_key; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -508,7 +559,7 @@ ALTER TABLE ONLY public.users
 
 
 --
--- TOC entry 4903 (class 2606 OID 16617)
+-- TOC entry 4911 (class 2606 OID 16617)
 -- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -517,7 +568,7 @@ ALTER TABLE ONLY public.users
 
 
 --
--- TOC entry 4911 (class 2606 OID 16635)
+-- TOC entry 4919 (class 2606 OID 16635)
 -- Name: inventory_item inventory_item_category_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -526,7 +577,7 @@ ALTER TABLE ONLY public.inventory_item
 
 
 --
--- TOC entry 4912 (class 2606 OID 16648)
+-- TOC entry 4920 (class 2606 OID 16648)
 -- Name: shift_volunteer shift_volunteer_shift_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -535,7 +586,7 @@ ALTER TABLE ONLY public.shift_volunteer
 
 
 --
--- TOC entry 4913 (class 2606 OID 16653)
+-- TOC entry 4921 (class 2606 OID 16653)
 -- Name: shift_volunteer shift_volunteer_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -544,7 +595,7 @@ ALTER TABLE ONLY public.shift_volunteer
 
 
 --
--- TOC entry 4914 (class 2606 OID 16669)
+-- TOC entry 4922 (class 2606 OID 16669)
 -- Name: transaction transaction_item_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -553,7 +604,7 @@ ALTER TABLE ONLY public.transaction
 
 
 --
--- TOC entry 4910 (class 2606 OID 16620)
+-- TOC entry 4918 (class 2606 OID 16620)
 -- Name: users users_role_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -561,7 +612,7 @@ ALTER TABLE ONLY public.users
     ADD CONSTRAINT users_role_id_fkey FOREIGN KEY (role_id) REFERENCES public.role(role_id);
 
 
--- Completed on 2026-05-12 08:21:29
+-- Completed on 2026-05-12 08:52:26
 
 --
 -- PostgreSQL database dump complete
