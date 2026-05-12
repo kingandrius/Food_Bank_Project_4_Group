@@ -567,4 +567,11 @@ ALTER TABLE ONLY public.users
 -- PostgreSQL database dump complete
 --
 
-
+--Nikolay: Small changes to some column's names for easier coding and data management
+ALTER TABLE users RENAME COLUMN password_hash TO password;
+ALTER TABLE role RENAME COLUMN role_id TO id;
+ALTER TABLE users RENAME COLUMN user_id TO id;
+ALTER TABLE shift RENAME COLUMN shift_id TO id;
+ALTER TABLE category RENAME COLUMN category_id TO id;
+ALTER TABLE inventory_item RENAME COLUMN item_id TO id;
+ALTER TABLE transaction RENAME COLUMN transaction_id TO id;
