@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Bank Management System - Volunteers</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h1 class="sidebar-title">Food Bank</h1>
+            </div>
+            <nav class="sidebar-nav">
+                <ul class="nav-list">
+                    <li class="nav-item">
+                        <a href="dashboard.html" class="nav-link">
+                            <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2-2z"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5a2 2 0 012-2h4a2 2 0 012 2v2H8V5z"/>
+                            </svg>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="add-food.html" class="nav-link">
+                            <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
+                            </svg>
+                            <span>Add Food</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="inventory.html" class="nav-link">
+                            <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>
+                            </svg>
+                            <span>Inventory</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="volunteers.html" class="nav-link active">
+                            <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"/>
+                            </svg>
+                            <span>Volunteers</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="reports.html" class="nav-link">
+                            <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                            </svg>
+                            <span>Reports</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="settings.html" class="nav-link">
+                            <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                            </svg>
+                            <span>Settings</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <div class="page-container">
+                <div class="page-header mb-10">
+                    <a href="dashboard.html" class="back-link">
+                        <svg class="back-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                        </svg>
+                        Back to Dashboard
+                    </a>
+                    <div class="page-header-with-actions">
+                        <div>
+                            <h1 class="page-title">Volunteers</h1>
+                            <p class="page-subtitle">Manage your volunteer team (5 active)</p>
+                        </div>
+                        <button class="btn btn-primary">
+                            <svg class="btn-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
+                            </svg>
+                            Add Volunteer
+                        </button>
+                    </div>
+                </div>
+
+                <div class="volunteer-grid">
+                    <div class="volunteer-card">
+                        <div class="volunteer-header">
+                            <div class="volunteer-info">
+                                <div class="volunteer-avatar">S</div>
+                                <div>
+                                    <h3 class="volunteer-name">Sarah Johnson</h3>
+                                    <p class="volunteer-role">Warehouse Manager</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="volunteer-status">
+                            <span class="badge badge-active">Active</span>
+                        </div>
+                        <div class="volunteer-availability">
+                            <svg class="availability-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                            </svg>
+                            <div>
+                                <p class="availability-label">Availability</p>
+                                <p class="availability-text">Mon-Fri, 9AM-5PM</p>
+                            </div>
+                        </div>
+                        <div class="volunteer-contact space-y-4">
+                            <div class="contact-item">
+                                <svg class="contact-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                                </svg>
+                                <p class="contact-text">sarah.j@foodbank.org</p>
+                            </div>
+                            <div class="contact-item">
+                                <svg class="contact-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                                </svg>
+                                <p class="contact-text">(555) 123-4567</p>
+                            </div>
+                        </div>
+                        <button class="btn btn-secondary btn-full">Contact</button>
+                    </div>
+
+                    <div class="volunteer-card">
+                        <div class="volunteer-header">
+                            <div class="volunteer-info">
+                                <div class="volunteer-avatar">M</div>
+                                <div>
+                                    <h3 class="volunteer-name">Michael Chen</h3>
+                                    <p class="volunteer-role">Inventory Coordinator</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="volunteer-status">
+                            <span class="badge badge-active">Active</span>
+                        </div>
+                        <div class="volunteer-availability">
+                            <svg class="availability-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                            </svg>
+                            <div>
+                                <p class="availability-label">Availability</p>
+                                <p class="availability-text">Tue-Sat, 10AM-6PM</p>
+                            </div>
+                        </div>
+                        <div class="volunteer-contact space-y-4">
+                            <div class="contact-item">
+                                <svg class="contact-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                                </svg>
+                                <p class="contact-text">michael.c@foodbank.org</p>
+                            </div>
+                            <div class="contact-item">
+                                <svg class="contact-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                                </svg>
+                                <p class="contact-text">(555) 234-5678</p>
+                            </div>
+                        </div>
+                        <button class="btn btn-secondary btn-full">Contact</button>
+                    </div>
+
+                    <div class="volunteer-card">
+                        <div class="volunteer-header">
+                            <div class="volunteer-info">
+                                <div class="volunteer-avatar">E</div>
+                                <div>
+                                    <h3 class="volunteer-name">Emily Rodriguez</h3>
+                                    <p class="volunteer-role">Volunteer Coordinator</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="volunteer-status">
+                            <span class="badge badge-active">Active</span>
+                        </div>
+                        <div class="volunteer-availability">
+                            <svg class="availability-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                            </svg>
+                            <div>
+                                <p class="availability-label">Availability</p>
+                                <p class="availability-text">Wed-Sun, 8AM-4PM</p>
+                            </div>
+                        </div>
+                        <div class="volunteer-contact space-y-4">
+                            <div class="contact-item">
+                                <svg class="contact-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                                </svg>
+                                <p class="contact-text">emily.r@foodbank.org</p>
+                            </div>
+                            <div class="contact-item">
+                                <svg class="contact-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                                </svg>
+                                <p class="contact-text">(555) 345-6789</p>
+                            </div>
+                        </div>
+                        <button class="btn btn-secondary btn-full">Contact</button>
+                    </div>
+
+                    <div class="volunteer-card">
+                        <div class="volunteer-header">
+                            <div class="volunteer-info">
+                                <div class="volunteer-avatar">J</div>
+                                <div>
+                                    <h3 class="volunteer-name">James Wilson</h3>
+                                    <p class="volunteer-role">Food Sorter</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="volunteer-status">
+                            <span class="badge badge-active">Active</span>
+                        </div>
+                        <div class="volunteer-availability">
+                            <svg class="availability-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                            </svg>
+                            <div>
+                                <p class="availability-label">Availability</p>
+                                <p class="availability-text">Mon, Wed, Fri, 2PM-8PM</p>
+                            </div>
+                        </div>
+                        <div class="volunteer-contact space-y-4">
+                            <div class="contact-item">
+                                <svg class="contact-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                                </svg>
+                                <p class="contact-text">james.w@foodbank.org</p>
+                            </div>
+                            <div class="contact-item">
+                                <svg class="contact-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                                </svg>
+                                <p class="contact-text">(555) 456-7890</p>
+                            </div>
+                        </div>
+                        <button class="btn btn-secondary btn-full">Contact</button>
+                    </div>
+
+                    <div class="volunteer-card">
+                        <div class="volunteer-header">
+                            <div class="volunteer-info">
+                                <div class="volunteer-avatar">L</div>
+                                <div>
+                                    <h3 class="volunteer-name">Lisa Anderson</h3>
+                                    <p class="volunteer-role">Distribution Lead</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="volunteer-status">
+                            <span class="badge badge-active">Active</span>
+                        </div>
+                        <div class="volunteer-availability">
+                            <svg class="availability-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                            </svg>
+                            <div>
+                                <p class="availability-label">Availability</p>
+                                <p class="availability-text">Weekends, 9AM-3PM</p>
+                            </div>
+                        </div>
+                        <div class="volunteer-contact space-y-4">
+                            <div class="contact-item">
+                                <svg class="contact-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                                </svg>
+                                <p class="contact-text">lisa.a@foodbank.org</p>
+                            </div>
+                            <div class="contact-item">
+                                <svg class="contact-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                                </svg>
+                                <p class="contact-text">(555) 567-8901</p>
+                            </div>
+                        </div>
+                        <button class="btn btn-secondary btn-full">Contact</button>
+                    </div>
+
+                    <div class="volunteer-card">
+                        <div class="volunteer-header">
+                            <div class="volunteer-info">
+                                <div class="volunteer-avatar">D</div>
+                                <div>
+                                    <h3 class="volunteer-name">David Park</h3>
+                                    <p class="volunteer-role">Food Sorter</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="volunteer-status">
+                            <span class="badge badge-inactive">Inactive</span>
+                        </div>
+                        <div class="volunteer-availability">
+                            <svg class="availability-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                            </svg>
+                            <div>
+                                <p class="availability-label">Availability</p>
+                                <p class="availability-text">Thu-Sat, 1PM-7PM</p>
+                            </div>
+                        </div>
+                        <div class="volunteer-contact space-y-4">
+                            <div class="contact-item">
+                                <svg class="contact-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                                </svg>
+                                <p class="contact-text">david.p@foodbank.org</p>
+                            </div>
+                            <div class="contact-item">
+                                <svg class="contact-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                                </svg>
+                                <p class="contact-text">(555) 678-9012</p>
+                            </div>
+                        </div>
+                        <button class="btn btn-secondary btn-full">Contact</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="volunteers.js"></script>
+</body>
+</html>
