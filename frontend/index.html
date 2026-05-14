@@ -6,21 +6,19 @@
     <title>Food Bank Management System - Login</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="login-body">
     <div class="login-container">
         <div class="login-wrapper">
-            <div class="login-card">
-                <div class="login-logo-container">
-                    <div class="login-logo">
-                        <svg class="login-logo-icon" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
-                        </svg>
-                    </div>
+            <div class="auth-card"> 
+                <div class="text-center mb-6">
+                    <svg fill="var(--primary-green)" viewBox="0 0 24 24" style="width: 48px; height: 48px;">
+                        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                    </svg>
                 </div>
 
-                <div class="login-header">
-                    <h1 class="login-title" id="formTitle">Welcome Back</h1>
-                    <p class="login-subtitle">Food Bank Management System</p>
+                <div class="text-center">
+                    <h1 class="mb-1" id="formTitle">Welcome Back</h1>
+                    <p class="mb-6" style="color: var(--text-muted);">Food Bank Management System</p>
                 </div>
 
                 <div class="login-tab-container">
@@ -28,7 +26,7 @@
                     <button class="login-tab" id="registerTab">Register</button>
                 </div>
 
-                <form id="loginForm" class="login-form">
+                <form id="loginForm">
                     <div class="form-group">
                         <label for="loginEmail" class="form-label">Email Address</label>
                         <input type="email" id="loginEmail" name="email" required placeholder="name@example.com" class="form-input" />
@@ -40,7 +38,7 @@
                     <button type="submit" class="btn btn-primary btn-full">Login</button>
                 </form>
 
-                <form id="registerForm" class="login-form" style="display: none;">
+                <form id="registerForm" style="display: none;">
                     <div style="display: flex; gap: 10px; margin-bottom: 1.25rem;">
                         <div style="flex: 1;">
                             <label for="firstName" class="form-label">First Name</label>

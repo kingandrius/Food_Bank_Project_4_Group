@@ -1,8 +1,8 @@
 /**
- * GLOBAL STYLES
- * Use: Colors, fonts, and button styles used across all pages.
- * Tip: Change variables here to update the theme for the entire Food Bank app.
+ * GLOBAL STYLES & FOUNDATION
+ * Use: Colors, fonts, and base layouts for the entire app.
  */
+
 :root {
     --primary-green: #48bb78;
     --primary-blue: #3182ce;
@@ -26,28 +26,98 @@ body {
     line-height: 1.5;
 }
 
-/* Common Button Styles */
+/* --- Login & Auth Layout --- */
+.login-body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+.auth-card {
+    background: var(--white);
+    padding: 2.5rem;
+    border-radius: 12px;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    border: 1px solid var(--border-color);
+}
+
+/* --- Tabs Styling (Fixes the "Wrong" Buttons) --- */
+.login-tab-container {
+    display: flex;
+    border-bottom: 1px solid var(--border-color);
+    margin-bottom: 1.5rem;
+}
+
+.login-tab {
+    flex: 1;
+    padding: 12px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    color: var(--text-muted);
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all 0.2s;
+    border-bottom: 2px solid transparent;
+}
+
+.login-tab.active {
+    color: var(--primary-blue);
+    border-bottom: 2px solid var(--primary-blue);
+}
+
+/* --- Form Elements --- */
+.form-group {
+    margin-bottom: 1.25rem;
+}
+
+.form-label {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.form-input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    font-size: 1rem;
+}
+
+/* --- Buttons --- */
 .btn {
     display: inline-block;
-    padding: 10px 20px;
-    border-radius: 6px;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
     font-weight: 600;
-    text-decoration: none;
-    transition: background 0.2s;
+    text-align: center;
     cursor: pointer;
+    border: none;
+    transition: filter 0.2s;
 }
 
-.btn-primary {
-    background-color: var(--primary-green);
-    color: var(--white);
+.btn-primary { background-color: var(--primary-green); color: white; }
+.btn-primary:hover { filter: brightness(95%); }
+.btn-full { width: 100%; }
+
+/* --- Footer & Tagline --- */
+.login-tagline {
+    margin-top: 2rem;
+    text-align: center;
 }
 
-.btn-secondary {
-    background-color: transparent;
-    color: var(--primary-blue);
-    border: 1px solid var(--primary-blue);
+.login-tagline-text {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    font-style: italic;
 }
 
-.mb-10 { margin-bottom: 2.5rem; }
-.mb-8 { margin-bottom: 2rem; }
+/* --- Utilities --- */
+.text-center { text-align: center; }
+.mb-1 { margin-bottom: 0.25rem; }
 .mb-6 { margin-bottom: 1.5rem; }
