@@ -1,3 +1,11 @@
+/**
+ * ROLE PERMISSION HIERARCHY
+ * -------------------------
+ * Role 1 (Admin): Full system access. Can promote Volunteers to Managers.
+ * Role 2 (Manager): Handles scheduling and volunteer coordination.
+ * Role 3 (Volunteer): Default role. Can edit food quantities and sign up for shifts.
+ * * Logic: Use these IDs to toggle the 'hidden' attribute on sidebar links.
+ */
 document.addEventListener('DOMContentLoaded', () => {
     // UI Elements
     const loginTab = document.getElementById('loginTab');
