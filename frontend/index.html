@@ -10,14 +10,17 @@
     <div class="login-container">
         <div class="login-wrapper">
             <div class="login-card">
-                <div class="login-logo">
-                    <svg class="login-logo-icon" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
-                    </svg>
+                <div class="login-logo-container">
+                    <div class="login-logo">
+                        <svg class="login-logo-icon" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                        </svg>
+                    </div>
                 </div>
 
                 <div class="login-header">
-                    <h1 class="login-title">Food Bank Portal</h1>
+                    <h1 class="login-title" id="formTitle">Welcome Back</h1>
+                    <p class="login-subtitle">Food Bank Management System</p>
                 </div>
 
                 <div class="login-tab-container">
@@ -25,37 +28,38 @@
                     <button class="login-tab" id="registerTab">Register</button>
                 </div>
 
-                <form id="loginForm">
+                <form id="loginForm" class="login-form">
                     <div class="form-group">
                         <label for="loginEmail" class="form-label">Email Address</label>
                         <input type="email" id="loginEmail" name="email" required placeholder="name@example.com" class="form-input" />
                     </div>
-
                     <div class="form-group">
                         <label for="loginPassword" class="form-label">Password</label>
                         <input type="password" id="loginPassword" name="password" required placeholder="Enter password" class="form-input" />
                     </div>
-
-                    <button type="submit" class="btn btn-primary">Login</button>
+                    <button type="submit" class="btn btn-primary btn-full">Login</button>
                 </form>
 
-                <form id="registerForm" style="display: none;">
-                    <div class="form-group">
-                        <label for="name" class="form-label">Full Name</label>
-                        <input type="text" id="name" name="name" required placeholder="Jane Doe" class="form-input" />
+                <form id="registerForm" class="login-form" style="display: none;">
+                    <div style="display: flex; gap: 10px; margin-bottom: 1.25rem;">
+                        <div style="flex: 1;">
+                            <label for="firstName" class="form-label">First Name</label>
+                            <input type="text" id="firstName" name="firstName" required placeholder="Jane" class="form-input" />
+                        </div>
+                        <div style="flex: 1;">
+                            <label for="lastName" class="form-label">Last Name</label>
+                            <input type="text" id="lastName" name="lastName" required placeholder="Doe" class="form-input" />
+                        </div>
                     </div>
-
                     <div class="form-group">
-                        <label for="email" class="form-label">Email Address</label>
-                        <input type="email" id="email" name="email" required placeholder="jane@example.com" class="form-input" />
+                        <label for="regEmail" class="form-label">Email Address</label>
+                        <input type="email" id="regEmail" name="regEmail" required placeholder="name@example.com" class="form-input" />
                     </div>
-
                     <div class="form-group">
-                        <label for="password" class="form-label">Password</label>
-                        <input type="password" id="password" name="password" required placeholder="Create password" class="form-input" />
+                        <label for="regPassword" class="form-label">Password</label>
+                        <input type="password" id="regPassword" name="regPassword" required placeholder="Create password" class="form-input" />
                     </div>
-
-                    <button type="submit" class="btn btn-primary">Create Account</button>
+                    <button type="submit" class="btn btn-primary btn-full">Create Account</button>
                 </form>
 
                 <div class="login-tagline">
@@ -64,7 +68,6 @@
             </div>
         </div>
     </div>
-
     <script src="authorization.js"></script>
 </body>
 </html>

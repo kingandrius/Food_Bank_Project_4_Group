@@ -1,40 +1,93 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // UI Elements
     const loginTab = document.getElementById('loginTab');
     const registerTab = document.getElementById('registerTab');
     const loginForm = document.getElementById('loginForm');
     const registerForm = document.getElementById('registerForm');
+    const formTitle = document.getElementById('formTitle');
 
-    // --- TAB SWITCHING LOGIC ---
-    
+    const API_URL = 'http://localhost:3000/auth';
+
+    // --- TAB SWITCHING ---
     loginTab.addEventListener('click', () => {
-        // Update Tabs
         loginTab.classList.add('active');
         registerTab.classList.remove('active');
-        // Show/Hide Forms
         loginForm.style.display = 'block';
         registerForm.style.display = 'none';
+        formTitle.textContent = 'Welcome Back';
     });
 
     registerTab.addEventListener('click', () => {
-        // Update Tabs
         registerTab.classList.add('active');
         loginTab.classList.remove('active');
-        // Show/Hide Forms
         registerForm.style.display = 'block';
         loginForm.style.display = 'none';
+        formTitle.textContent = 'Create Account';
     });
 
-    // --- FORM SUBMISSION LOGIC ---
-
+    // --- LOGIN LOGIC ---
     loginForm.addEventListener('submit', async (e) => {
         e.preventDefault();
-        // For now, let's keep the redirect so you can see the dashboard
-        // We will add the real database check in the next step!
-        window.location.href = 'dashboard.html';
+        
+        const email = document.getElementById('loginEmail').value;
+        const password = document.getElementById('loginPassword').value;
+
+        try {
+            const response = await fetch(`${API_URL}/login`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, password })
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                localStorage.setItem('token', data.token);
+                window.location.href = 'dashboard.html';
+            } else {
+                alert(data.message || 'Login failed');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('Cannot connect to server. Ensure backend is running.');
+        }
     });
 
+    // --- REGISTER LOGIC ---
     registerForm.addEventListener('submit', async (e) => {
         e.preventDefault();
-        alert('Registration feature coming up next!');
+
+        // Collect new split name fields
+        const fName = document.getElementById('firstName').value;
+        const lName = document.getElementById('lastName').value;
+        const email = document.getElementById('regEmail').value;
+        const password = document.getElementById('regPassword').value;
+
+        // Combine for the database
+        const fullName = `${fName} ${lName}`;
+
+        try {
+            const response = await fetch(`${API_URL}/register`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ 
+                    name: fullName, 
+                    email: email, 
+                    password: password 
+                })
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                alert('Account created! You can now log in.');
+                loginTab.click(); // Switch back to login
+            } else {
+                alert(data.message || 'Registration failed');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('Registration error. Check console.');
+        }
     });
 });
