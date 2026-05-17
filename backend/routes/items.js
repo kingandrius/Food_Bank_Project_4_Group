@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const jwt = require('jsonwebtoken');
 const pool = require('../db');
 
 // Token verification for logged in users
@@ -44,6 +45,32 @@ router.get('/all', verifyToken, async (req, res) => {
     try {
         const items = await pool.query('SELECT * FROM inventory');
         res.status(200).json({ items: items.rows });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: 'Server error.' });
+    }
+});
+
+// Update inventory item quantity
+router.put('/update/:id', verifyToken, async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { quantity } = req.body;
+
+        if (quantity === undefined || quantity === null) {
+            return res.status(400).json({ message: 'Quantity is required.' });
+        }
+
+        const updatedItem = await pool.query(
+            'UPDATE inventory SET quantity = $1 WHERE id = $2 RETURNING *',
+            [quantity, id]
+        );
+
+        if (updatedItem.rows.length === 0) {
+            return res.status(404).json({ message: 'Item not found.' });
+        }
+
+        res.status(200).json({ item: updatedItem.rows[0] });
     } catch (err) {
         console.error(err);
         res.status(500).json({ message: 'Server error.' });

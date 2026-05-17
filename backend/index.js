@@ -11,6 +11,7 @@ app.use(cors());
 app.use(express.json()); // Processes JSON files
 
 app.use('/auth', require('./routes/auth'))
+app.use('/inventory', require('./routes/items'))
 
 app.get('/', (req, res) => {
     res.json('The quick brown fox jumps over the lazy dog');
