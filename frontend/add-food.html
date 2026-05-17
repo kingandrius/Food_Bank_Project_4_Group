@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Food Bank Management System - Add Food</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="layout.css">
+    <link rel="stylesheet" href="dashboard.css">
 </head>
 <body>
     <div class="app-container">
@@ -70,22 +72,22 @@
 
         <main class="main-content">
             <div class="page-container">
-                <div class="page-header mb-10">
-                    <a href="dashboard.html" class="back-link">
-                        <svg class="back-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div class="page-header mb-6">
+                    <a href="dashboard.html" class="back-link" style="display: flex; align-items: center; gap: 5px; color: var(--primary-blue); text-decoration: none; font-size: 0.875rem; font-weight: 600; margin-bottom: 0.5rem;">
+                        <svg class="back-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="width: 16px; height: 16px;">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
                         </svg>
                         Back to Dashboard
                     </a>
                     <h1 class="page-title">Add Food Item</h1>
-                    <p class="page-subtitle">Enter the details of the new food item</p>
+                    <p class="page-subtitle" style="color: var(--text-muted);">Enter the details of the new food item</p>
                 </div>
 
-                <div class="content-wrapper-narrow">
-                    <div class="card card-large">
+                <div class="content-wrapper-narrow" style="max-width: 520px; margin: 0 auto;">
+                    <div class="card card-large" style="background: var(--white); padding: 2rem; border-radius: 8px; border: 1px solid var(--border-color); box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
                         <form id="addFoodForm" class="form">
-                            <div class="form-group">
-                                <label for="foodName" class="form-label">Food Name</label>
+                            <div class="form-group" style="margin-bottom: 1.25rem;">
+                                <label for="foodName" class="form-label" style="display: block; font-size: 0.875rem; font-weight: 600; margin-bottom: 0.5rem; color: var(--text-dark);">Food Name</label>
                                 <input
                                     type="text"
                                     id="foodName"
@@ -96,8 +98,8 @@
                                 />
                             </div>
 
-                            <div class="form-group">
-                                <label for="quantity" class="form-label">Quantity</label>
+                            <div class="form-group" style="margin-bottom: 1.25rem;">
+                                <label for="quantity" class="form-label" style="display: block; font-size: 0.875rem; font-weight: 600; margin-bottom: 0.5rem; color: var(--text-dark);">Quantity</label>
                                 <input
                                     type="number"
                                     id="quantity"
@@ -109,8 +111,8 @@
                                 />
                             </div>
 
-                            <div class="form-group">
-                                <label for="expiryDate" class="form-label">Expiry Date</label>
+                            <div class="form-group" style="margin-bottom: 1.25rem;">
+                                <label for="expiryDate" class="form-label" style="display: block; font-size: 0.875rem; font-weight: 600; margin-bottom: 0.5rem; color: var(--text-dark);">Expiry Date</label>
                                 <input
                                     type="date"
                                     id="expiryDate"
@@ -120,9 +122,9 @@
                                 />
                             </div>
 
-                            <div class="form-group">
-                                <label for="category" class="form-label">Category</label>
-                                <select id="category" name="category" required class="form-select">
+                            <div class="form-group" style="margin-bottom: 1.75rem;">
+                                <label for="category" class="form-label" style="display: block; font-size: 0.875rem; font-weight: 600; margin-bottom: 0.5rem; color: var(--text-dark);">Category</label>
+                                <select id="category" name="category" required class="form-select" style="width: 100%; padding: 0.75rem; border: 1px solid var(--border-color); border-radius: 6px; font-size: 1rem; color: var(--text-dark); background-color: var(--white); font-family: inherit;">
                                     <option value="">Select a category</option>
                                     <option value="Fruits & Vegetables">Fruits & Vegetables</option>
                                     <option value="Dairy & Eggs">Dairy & Eggs</option>
@@ -134,8 +136,8 @@
                                 </select>
                             </div>
 
-                            <button type="submit" class="btn btn-primary btn-full btn-large">
-                                <svg class="btn-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <button type="submit" class="btn btn-primary btn-full" style="display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%;">
+                                <svg class="btn-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="width: 18px; height: 18px;">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
                                 </svg>
                                 Add Food Item
