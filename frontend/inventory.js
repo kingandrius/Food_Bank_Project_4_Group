@@ -2,6 +2,7 @@ const API_URL = 'http://localhost:3000/items';
 
 const getToken = () => localStorage.getItem('token');
 
+// Component helper to inject semantic, styled status badges based on inventory parameters
 const buildStatusBadge = (item) => {
     const now = new Date();
     const expiration = item.expiration_date ? new Date(item.expiration_date) : null;
@@ -17,9 +18,10 @@ const buildStatusBadge = (item) => {
         }
     }
 
-    return '<span class="badge badge-good" style="background: #e6fffa; color: var(--primary-green); padding: 4px 8px; border-radius: 4px; font-size: 0.85rem; font-weight: 600;">Good Stock</span>';
+    return '<span class="badge badge-good" style="background: #e6fffa; color: var(--primary-green, #10b981); padding: 4px 8px; border-radius: 4px; font-size: 0.85rem; font-weight: 600;">Good Stock</span>';
 };
 
+// Iterates through backend collections and builds individual data table rows
 const renderInventory = (items) => {
     const tableBody = document.getElementById('inventoryTableBody');
     if (!tableBody) return;
@@ -36,7 +38,7 @@ const renderInventory = (items) => {
         row.innerHTML = `
             <td style="padding: 1rem; font-weight: 500;">${item.name}</td>
             <td class="table-muted" style="padding: 1rem; color: var(--text-muted);">${category}</td>
-            <td style="padding: 1rem; cursor: pointer;" data-id="${item.id}" class="quantity-cell">${item.quantity}</td>
+            <td style="padding: 1rem; cursor: pointer; font-weight: 600; color: var(--primary-blue);" data-id="${item.id}" class="quantity-cell">${item.quantity}</td>
             <td style="padding: 1rem;">${item.expiration_date ? item.expiration_date.split('T')[0] : 'N/A'}</td>
             <td style="padding: 1rem;">${statusHtml}</td>
         `;
@@ -47,6 +49,7 @@ const renderInventory = (items) => {
     attachQuantityUpdateListeners();
 };
 
+// Click listeners for immediate inline quantity variations
 const attachQuantityUpdateListeners = () => {
     const quantityCells = document.querySelectorAll('.quantity-cell');
     quantityCells.forEach(cell => {
@@ -67,6 +70,7 @@ const attachQuantityUpdateListeners = () => {
     });
 };
 
+// Requests core database data from base REST url matching the backend layout directly
 const fetchInventory = async () => {
     const token = getToken();
     if (!token) {
@@ -75,7 +79,7 @@ const fetchInventory = async () => {
     }
 
     try {
-        const response = await fetch(`${API_URL}/all`, {
+        const response = await fetch(API_URL, {
             headers: {
                 'Authorization': token,
                 'Content-Type': 'application/json'
@@ -92,13 +96,14 @@ const fetchInventory = async () => {
             throw new Error(data.message || 'Unable to load inventory.');
         }
 
-        renderInventory(data.items || []);
+        renderInventory(Array.isArray(data) ? data : (data.items || []));
     } catch (error) {
         console.error('Inventory load error:', error);
         alert('Failed to load inventory. Please ensure the backend is running and you are logged in.');
     }
 };
 
+// Handles quantity variations updates back up into database storage pipelines
 const updateItemQuantity = async (id, quantity) => {
     const token = getToken();
     if (!token) {
@@ -133,6 +138,7 @@ const updateItemQuantity = async (id, quantity) => {
     }
 };
 
+// Initializes DOM elements, navigation context styles, and structural filters
 const initializePage = () => {
     const searchInput = document.getElementById('searchInput');
     if (searchInput) {

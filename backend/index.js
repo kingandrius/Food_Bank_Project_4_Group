@@ -1,22 +1,21 @@
 const express = require('express');
 const cors = require('cors');
-require('dotenv').config();
+require('dotenv').config(); // MUST be at the top!
+
+const authRouter = require('./routes/auth');
+const itemsRouter = require('./routes/items'); // 1. Import your items file
 
 const app = express();
-const PORT = process.env.PORT;
-const jwtSecret = process.env.JWT_SECRET;
 
 // Middleware
 app.use(cors());
-app.use(express.json()); // Processes JSON files
+app.use(express.json());
 
-app.use('/auth', require('./routes/auth'))
-app.use('/inventory', require('./routes/items'))
+// Routes
+app.use('/auth', authRouter);
+app.use('/items', itemsRouter); // 2. MOUNT IT HERE! This prefixes your route with /items
 
-app.get('/', (req, res) => {
-    res.json('The quick brown fox jumps over the lazy dog');
-});
-
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-    console.log(`Server running on port http://localhost:${PORT}`);
+    console.log(`Server is running on port ${PORT}`);
 });
