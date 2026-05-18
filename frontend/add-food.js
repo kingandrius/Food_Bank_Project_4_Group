@@ -1,29 +1,72 @@
 document.addEventListener('DOMContentLoaded', function() {
     const addFoodForm = document.getElementById('addFoodForm');
+    
+    // BACKEND CONFIGURATION
+    const API_URL = 'http://localhost:3000/items/addnew';
+    const getToken = () => localStorage.getItem('token');
+
     if (addFoodForm) {
-        addFoodForm.addEventListener('submit', function(e) {
+        addFoodForm.addEventListener('submit', async function(e) {
+            e.preventDefault(); // Stop the page from reloading on form submit
+
+            // 1. Run basic field validations
             if (!validateForm(addFoodForm)) {
-                e.preventDefault();
                 alert('Please fill in all required fields.');
                 return;
             }
 
-            e.preventDefault();
+            // 2. Check for the security pass token
+            const token = getToken();
+            if (!token) {
+                alert('You are not authorized. Please log in again.');
+                window.location.href = 'index.html';
+                return;
+            }
 
+            // 3. Collect the data from HTML Form inputs
             const formData = new FormData(addFoodForm);
+            
+            // KEY SYNC: Maps frontend input names to what items.js expects: { name, quantity, expiration_date }
             const foodData = {
-                foodName: formData.get('foodName'),
-                quantity: formData.get('quantity'),
-                expiryDate: formData.get('expiryDate'),
-                category: formData.get('category')
+                name: formData.get('foodName'),
+                quantity: parseInt(formData.get('quantity'), 10),
+                expiration_date: formData.get('expiryDate'),
+                
             };
 
-            console.log('Form submitted:', foodData);
-            addFoodForm.reset();
-            alert('Food item added successfully!');
+            try {
+                // 4. Dispatch data to backend API server
+                const response = await fetch(API_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': token, // fixed bearer validation parser handles this nicely
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(foodData)
+                });
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(data.message || 'Failed to save food item.');
+                }
+
+                // 5. Success! Reset form inputs and notify the user
+                console.log('Food added to database:', data);
+                addFoodForm.reset();
+                alert('Food item added successfully to database inventory!');
+                
+                // Optional: Send them to the inventory overview page to see it live
+                window.location.href = 'inventory.html';
+
+            } catch (error) {
+                console.error('Submission error:', error);
+                alert(error.message || 'Unable to connect to server.');
+            }
         });
     }
 
+    // Sidebar navigation highlighting logic
     const currentPage = window.location.pathname.split('/').pop();
     const navLinks = document.querySelectorAll('.nav-link');
     navLinks.forEach(link => {
@@ -33,6 +76,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
+    // Simple red-border highlighting helper for empty inputs
     function validateForm(form) {
         const inputs = form.querySelectorAll('input[required], select[required]');
         let isValid = true;
