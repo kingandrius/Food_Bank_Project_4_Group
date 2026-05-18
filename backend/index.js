@@ -5,7 +5,8 @@ require('dotenv').config(); // MUST be at the top!
 // 1. Import your routing modules
 const authRouter = require('./routes/auth');
 const itemsRouter = require('./routes/items'); 
-const volunteersRouter = require('./routes/volunteers'); // <-- ADDED: Imports the volunteer controller
+const volunteersRouter = require('./routes/volunteers');// <-- ADDED: Imports the volunteer controller
+const dashboardRouter = require('./routes/dashboard'); // <-- ADDED: Imports the dashboard controller
 
 const app = express();
 
@@ -17,6 +18,7 @@ app.use(express.json());
 app.use('/auth', authRouter);
 app.use('/items', itemsRouter); 
 app.use('/volunteers', volunteersRouter); // <-- ADDED: Handles all /volunteers requests from the frontend
+app.use('/dashboard', dashboardRouter); // <-- ADDED: Handles all /dashboard requests from the frontend
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
