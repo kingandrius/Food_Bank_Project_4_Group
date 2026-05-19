@@ -3,183 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Food Bank Management System - Inventory</title>
+    <title>Food Bank - Inventory</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="layout.css">
-    <link rel="stylesheet" href="dashboard.css">
 </head>
 <body>
     <div class="app-container">
         <aside class="sidebar">
-            <div class="sidebar-header">
-                <h1 class="sidebar-title">Food Bank</h1>
-            </div>
+            <div class="sidebar-header"><h1 class="sidebar-title">Food Bank</h1></div>
             <nav class="sidebar-nav">
                 <ul class="nav-list">
-                    <li class="nav-item">
-                        <a href="dashboard.html" class="nav-link">
-                            <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2-2z"/>
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5a2 2 0 012-2h4a2 2 0 012 2v2H8V5z"/>
-                            </svg>
-                            <span>Dashboard</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="add-food.html" class="nav-link">
-                            <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
-                            </svg>
-                            <span>Add Food</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="inventory.html" class="nav-link active">
-                            <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>
-                            </svg>
-                            <span>Inventory</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="volunteers.html" class="nav-link">
-                            <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"/>
-                            </svg>
-                            <span>Volunteers</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="reports.html" class="nav-link">
-                            <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
-                            </svg>
-                            <span>Reports</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="settings.html" class="nav-link">
-                            <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
-                            </svg>
-                            <span>Settings</span>
-                        </a>
-                    </li>
+                    <li class="nav-item"><a href="dashboard.html" class="nav-link"><svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2-2z"/></svg><span>Dashboard</span></a></li>
+                    <li class="nav-item"><a href="add-food.html" class="nav-link"><svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/></svg><span>Add Food</span></a></li>
+                    <li class="nav-item"><a href="inventory.html" class="nav-link active"><svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg><span>Inventory</span></a></li>
+                    <li class="nav-item"><a href="volunteers.html" class="nav-link"><svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"/></svg><span>Volunteers</span></a></li>
                 </ul>
             </nav>
         </aside>
-
         <main class="main-content">
-            <div class="page-container">
-                <div class="page-header mb-6">
-                    <a href="dashboard.html" class="back-link" style="display: flex; align-items: center; gap: 5px; color: var(--primary-blue); text-decoration: none; font-size: 0.875rem; font-weight: 600; margin-bottom: 0.5rem;">
-                        <svg class="back-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="width: 16px; height: 16px;">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
-                        </svg>
-                        Back to Dashboard
-                    </a>
-                    <h1 class="page-title">Inventory</h1>
-                    <p class="page-subtitle" style="color: var(--text-muted);">View and manage all food items</p>
-                </div>
-
-                <div class="search-filter-container mb-6" style="display: flex; gap: 15px; align-items: center;">
-                    <div class="search-wrapper" style="position: relative; flex: 1; max-width: 400px;">
-                        <svg class="search-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="width: 20px; height: 20px; position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--text-muted);">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
-                        </svg>
-                        <input
-                            type="text"
-                            id="searchInput"
-                            placeholder="Search food items..."
-                            class="search-input"
-                            style="width: 100%; padding: 0.75rem 0.75rem 0.75rem 2.5rem; border: 1px solid var(--border-color); border-radius: 6px; font-size: 0.95rem;"
-                        />
-                    </div>
-                    <button class="filter-btn btn" style="display: flex; align-items: center; gap: 8px; background: white; border: 1px solid var(--border-color); color: var(--text-dark); padding: 0.75rem 1.25rem;">
-                        <svg class="btn-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="width: 18px; height: 18px;">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/>
-                        </svg>
-                        Filter
-                    </button>
-                </div>
-
-                <div class="table-container" style="background: white; border-radius: 8px; border: 1px solid var(--border-color); overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
-                    <table class="table" style="width: 100%; border-collapse: collapse; text-align: left;">
-                        <thead>
-                            <tr style="background: var(--bg-light); border-bottom: 1px solid var(--border-color); color: var(--text-dark); font-weight: 600;">
-                                <th style="padding: 1rem;">Food Item</th>
-                                <th style="padding: 1rem;">Category</th>
-                                <th style="padding: 1rem;">Quantity</th>
-                                <th style="padding: 1rem;">Expiry Date</th>
-                                <th style="padding: 1rem;">Status</th>
-                            </tr>
-                        </thead>
-                        <tbody id="inventoryTableBody" style="color: var(--text-dark);">
-                            <tr style="border-bottom: 1px solid var(--border-color);">
-                                <td style="padding: 1rem; font-weight: 500;">Apples</td>
-                                <td class="table-muted" style="padding: 1rem; color: var(--text-muted);">Fruits & Vegetables</td>
-                                <td style="padding: 1rem;">50</td>
-                                <td style="padding: 1rem;">2026-06-15</td>
-                                <td style="padding: 1rem;"><span class="badge badge-good" style="background: #e6fffa; color: var(--primary-green); padding: 4px 8px; border-radius: 4px; font-size: 0.85rem; font-weight: 600;">Good Stock</span></td>
-                            </tr>
-                            <tr style="border-bottom: 1px solid var(--border-color);">
-                                <td style="padding: 1rem; font-weight: 500;">Bread</td>
-                                <td class="table-muted" style="padding: 1rem; color: var(--text-muted);">Grains & Bread</td>
-                                <td style="padding: 1rem;">30</td>
-                                <td style="padding: 1rem;">2026-05-20</td>
-                                <td style="padding: 1rem;"><span class="badge badge-good" style="background: #e6fffa; color: var(--primary-green); padding: 4px 8px; border-radius: 4px; font-size: 0.85rem; font-weight: 600;">Good Stock</span></td>
-                            </tr>
-                            <tr style="border-bottom: 1px solid var(--border-color);">
-                                <td style="padding: 1rem; font-weight: 500;">Milk</td>
-                                <td class="table-muted" style="padding: 1rem; color: var(--text-muted);">Dairy & Eggs</td>
-                                <td style="padding: 1rem;">20</td>
-                                <td style="padding: 1rem;">2026-05-12</td>
-                                <td style="padding: 1rem;"><span class="badge badge-expiring" style="background: #fffaf0; color: #dd6b20; padding: 4px 8px; border-radius: 4px; font-size: 0.85rem; font-weight: 600;">Expiring Soon</span></td>
-                            </tr>
-                            <tr style="border-bottom: 1px solid var(--border-color);">
-                                <td style="padding: 1rem; font-weight: 500;">Rice</td>
-                                <td class="table-muted" style="padding: 1rem; color: var(--text-muted);">Grains & Bread</td>
-                                <td style="padding: 1rem;">15</td>
-                                <td style="padding: 1rem;">2026-08-30</td>
-                                <td style="padding: 1rem;"><span class="badge badge-low" style="background: #fff5f5; color: #e53e3e; padding: 4px 8px; border-radius: 4px; font-size: 0.85rem; font-weight: 600;">Low Stock</span></td>
-                            </tr>
-                            <tr style="border-bottom: 1px solid var(--border-color);">
-                                <td style="padding: 1rem; font-weight: 500;">Canned Beans</td>
-                                <td class="table-muted" style="padding: 1rem; color: var(--text-muted);">Canned Goods</td>
-                                <td style="padding: 1rem;">45</td>
-                                <td style="padding: 1rem;">2027-01-10</td>
-                                <td style="padding: 1rem;"><span class="badge badge-good" style="background: #e6fffa; color: var(--primary-green); padding: 4px 8px; border-radius: 4px; font-size: 0.85rem; font-weight: 600;">Good Stock</span></td>
-                            </tr>
-                            <tr style="border-bottom: 1px solid var(--border-color);">
-                                <td style="padding: 1rem; font-weight: 500;">Pasta</td>
-                                <td class="table-muted" style="padding: 1rem; color: var(--text-muted);">Grains & Bread</td>
-                                <td style="padding: 1rem;">25</td>
-                                <td style="padding: 1rem;">2026-12-15</td>
-                                <td style="padding: 1rem;"><span class="badge badge-good" style="background: #e6fffa; color: var(--primary-green); padding: 4px 8px; border-radius: 4px; font-size: 0.85rem; font-weight: 600;">Good Stock</span></td>
-                            </tr>
-                            <tr style="border-bottom: 1px solid var(--border-color);">
-                                <td style="padding: 1rem; font-weight: 500;">Chicken</td>
-                                <td class="table-muted" style="padding: 1rem; color: var(--text-muted);">Meat & Protein</td>
-                                <td style="padding: 1rem;">12</td>
-                                <td style="padding: 1rem;">2026-05-10</td>
-                                <td style="padding: 1rem;"><span class="badge badge-expiring" style="background: #fffaf0; color: #dd6b20; padding: 4px 8px; border-radius: 4px; font-size: 0.85rem; font-weight: 600;">Expiring Soon</span></td>
-                            </tr>
-                            <tr style="border-bottom: 1px solid var(--border-color);">
-                                <td style="padding: 1rem; font-weight: 500;">Carrots</td>
-                                <td class="table-muted" style="padding: 1rem; color: var(--text-muted);">Fruits & Vegetables</td>
-                                <td style="padding: 1rem;">18</td>
-                                <td style="padding: 1rem;">2026-05-25</td>
-                                <td style="padding: 1rem;"><span class="badge badge-low" style="background: #fff5f5; color: #e53e3e; padding: 4px 8px; border-radius: 4px; font-size: 0.85rem; font-weight: 600;">Low Stock</span></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </main>
+            </main>
     </div>
-
-    <script src="inventory.js"></script>
     <script src="logout.js"></script>
 </body>
 </html>

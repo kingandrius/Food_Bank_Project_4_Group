@@ -3,171 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Food Bank Management System - Volunteers</title>
+    <title>Food Bank - Volunteers</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="layout.css">
-    <link rel="stylesheet" href="dashboard.css">
-    <style>
-        /* Specific page additions for the Team Directory layout */
-        .volunteer-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 1.5rem;
-            margin-top: 1.5rem;
-        }
-        .volunteer-card {
-            background: var(--white);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            padding: 1.5rem;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-        .volunteer-header {
-            display: flex;
-            align-items: flex-start;
-            justify-content: space-between;
-            margin-bottom: 1rem;
-        }
-        .volunteer-info {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-        }
-        .volunteer-avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background-color: #f3f4f6;
-            color: #2563eb;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 1px solid var(--border-color);
-        }
-        .volunteer-name {
-            font-size: 1rem;
-            font-weight: 600;
-            color: var(--text-dark);
-            margin: 0;
-        }
-        .volunteer-role {
-            font-size: 0.8125rem;
-            color: var(--text-muted);
-            margin: 0;
-        }
-        .volunteer-availability {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            background-color: #f9fafb;
-            padding: 0.75rem;
-            border-radius: 6px;
-            margin-bottom: 1rem;
-        }
-        .availability-icon {
-            width: 16px;
-            height: 16px;
-            color: var(--text-muted);
-            flex-shrink: 0;
-        }
-        .availability-label {
-            font-size: 0.6875rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            color: var(--text-muted);
-            margin: 0;
-        }
-        .availability-text {
-            font-size: 0.8125rem;
-            color: var(--text-dark);
-            font-weight: 500;
-            margin: 0;
-        }
-        .volunteer-contact {
-            margin-bottom: 1.25rem;
-        }
-        .contact-item {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            margin-bottom: 0.5rem;
-        }
-        .contact-icon {
-            width: 16px;
-            height: 16px;
-            color: var(--text-muted);
-        }
-        .contact-text {
-            font-size: 0.8125rem;
-            color: var(--text-dark);
-            margin: 0;
-        }
-    </style>
 </head>
 <body>
     <div class="app-container">
         <aside class="sidebar">
-            <div class="sidebar-header">
-                <div class="logo-icon">
-                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" style="width: 24px; height: 24px;">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
-                    </svg>
-                </div>
-                <h1 class="logo-text">FoodBank<span>Hub</span></h1>
-            </div>
+            <div class="sidebar-header"><h1 class="sidebar-title">Food Bank</h1></div>
             <nav class="sidebar-nav">
-                <a href="dashboard.html" class="nav-link">
-                    <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2H6a2 2 0 01-2 2v-4zM14 16a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2h-2a2 2 0 01-2-2v-4z"/>
-                    </svg>
-                    <span>Dashboard</span>
-                </a>
-                <a href="add-food.html" class="nav-link">
-                    <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
-                    </svg>
-                    <span>Add Food</span>
-                </a>
-                <a href="inventory.html" class="nav-link">
-                    <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>
-                    </svg>
-                    <span>Inventory</span>
-                </a>
-                <a href="volunteers.html" class="nav-link active">
-                    <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"/>
-                    </svg>
-                    <span>Volunteers</span>
-                </a>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="dashboard.html" class="nav-link"><svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2-2z"/></svg><span>Dashboard</span></a></li>
+                    <li class="nav-item"><a href="add-food.html" class="nav-link"><svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/></svg><span>Add Food</span></a></li>
+                    <li class="nav-item"><a href="inventory.html" class="nav-link"><svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg><span>Inventory</span></a></li>
+                    <li class="nav-item"><a href="volunteers.html" class="nav-link active"><svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"/></svg><span>Volunteers</span></a></li>
+                </ul>
             </nav>
         </aside>
-
         <main class="main-content">
-            <div class="page-header" style="margin-bottom: 2rem;">
-                <a href="dashboard.html" class="back-link" style="display: flex; align-items: center; gap: 5px; color: #2563eb; text-decoration: none; font-size: 0.875rem; font-weight: 600; margin-bottom: 0.5rem;">
-                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" style="width: 16px; height: 16px;">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
-                    </svg>
-                    Back to Dashboard
-                </a>
-                <div>
-                    <h1 class="page-title" style="font-size: 1.75rem; font-weight: 700; margin: 0; color: var(--text-dark);">Volunteer Directory</h1>
-                    <p class="page-subtitle" style="margin: 0.25rem 0 0 0; color: var(--text-muted);">Manage your active support team</p>
-                </div>
-            </div>
-
-            <div class="volunteer-grid" id="volunteerGrid">
-                <p style="color: var(--text-muted); text-align: center; grid-column: 1/-1;">Loading team members...</p>
-            </div>
-        </main>
+            </main>
     </div>
-
-    <script src="volunteers.js"></script>
     <script src="logout.js"></script>
 </body>
 </html>

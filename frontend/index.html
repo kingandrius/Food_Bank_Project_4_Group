@@ -5,65 +5,107 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Food Bank Management System - Login</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        .auth-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            width: 100%;
+            background-color: var(--bg-main);
+            padding: 1.5rem;
+        }
+        .auth-container {
+            width: 100%;
+            max-width: 440px;
+            background: #ffffff;
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.03);
+            padding: 2.5rem 2rem;
+        }
+        .auth-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .auth-tabs {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            background: #edf2f7;
+            padding: 4px;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+        .auth-tab-btn {
+            background: transparent;
+            border: none;
+            padding: 0.6rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            cursor: pointer;
+            border-radius: 6px;
+            transition: all 0.15s ease;
+            font-family: inherit;
+        }
+        .auth-tab-btn.active {
+            background: #ffffff;
+            color: var(--text-main);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+        }
+        .btn-full {
+            width: 100%;
+            margin-top: 1rem;
+        }
+    </style>
 </head>
-<body class="login-body">
-    <div class="login-container">
-        <div class="login-wrapper">
-            <div class="auth-card"> 
-                <div class="text-center mb-6">
-                    <svg fill="var(--primary-green)" viewBox="0 0 24 24" style="width: 48px; height: 48px;">
-                        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
-                    </svg>
-                </div>
-
-                <div class="text-center">
-                    <h1 class="mb-1" id="formTitle">Welcome Back</h1>
-                    <p class="mb-6" style="color: var(--text-muted);">Food Bank Management System</p>
-                </div>
-
-                <div class="login-tab-container">
-                    <button class="login-tab active" id="loginTab">Login</button>
-                    <button class="login-tab" id="registerTab">Register</button>
-                </div>
-
-                <form id="loginForm">
-                    <div class="form-group">
-                        <label for="loginEmail" class="form-label">Email Address</label>
-                        <input type="email" id="loginEmail" name="email" required placeholder="name@example.com" class="form-input" />
-                    </div>
-                    <div class="form-group">
-                        <label for="loginPassword" class="form-label">Password</label>
-                        <input type="password" id="loginPassword" name="password" required placeholder="Enter password" class="form-input" />
-                    </div>
-                    <button type="submit" class="btn btn-primary btn-full">Login</button>
-                </form>
-
-                <form id="registerForm" style="display: none;">
-                    <div style="display: flex; gap: 10px; margin-bottom: 1.25rem;">
-                        <div style="flex: 1;">
-                            <label for="firstName" class="form-label">First Name</label>
-                            <input type="text" id="firstName" name="firstName" required placeholder="Jane" class="form-input" />
-                        </div>
-                        <div style="flex: 1;">
-                            <label for="lastName" class="form-label">Last Name</label>
-                            <input type="text" id="lastName" name="lastName" required placeholder="Doe" class="form-input" />
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="regEmail" class="form-label">Email Address</label>
-                        <input type="email" id="regEmail" name="regEmail" required placeholder="name@example.com" class="form-input" />
-                    </div>
-                    <div class="form-group">
-                        <label for="regPassword" class="form-label">Password</label>
-                        <input type="password" id="regPassword" name="regPassword" required placeholder="Create password" class="form-input" />
-                    </div>
-                    <button type="submit" class="btn btn-primary btn-full">Create Account</button>
-                </form>
-
-                <div class="login-tagline">
-                    <p class="login-tagline-text">Together, we make a difference</p>
-                </div>
+<body>
+    <div class="auth-wrapper">
+        <div class="auth-container">
+            <div class="auth-header">
+                <h1 class="page-title" id="formTitle" style="font-size: 1.65rem; margin-bottom: 0.25rem;">Welcome Back</h1>
+                <p class="page-subtitle" style="font-size: 0.9rem;">Food Bank Management Portal</p>
             </div>
+
+            <div class="auth-tabs">
+                <button id="loginTab" class="auth-tab-btn active">Sign In</button>
+                <button id="registerTab" class="auth-tab-btn">Create Account</button>
+            </div>
+
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="loginEmail" class="form-label">Email Address</label>
+                    <input type="email" id="loginEmail" name="email" required placeholder="name@organization.org" class="form-input">
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword" class="form-label">Password</label>
+                    <input type="password" id="loginPassword" name="password" required placeholder="••••••••" class="form-input">
+                </div>
+                <button type="submit" class="btn btn-primary btn-full">Sign In to Dashboard</button>
+            </form>
+
+            <form id="registerForm" style="display: none;">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                    <div class="form-group">
+                        <label for="firstName" class="form-label">First Name</label>
+                        <input type="text" id="firstName" required placeholder="Jane" class="form-input">
+                    </div>
+                    <div class="form-group">
+                        <label for="lastName" class="form-label">Last Name</label>
+                        <input type="text" id="lastName" required placeholder="Doe" class="form-input">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="regEmail" class="form-label">Email Address</label>
+                    <input type="email" id="regEmail" required placeholder="name@organization.org" class="form-input">
+                </div>
+                <div class="form-group">
+                    <label for="regPassword" class="form-label">Password</label>
+                    <input type="password" id="regPassword" required placeholder="Minimum 8 characters" class="form-input">
+                </div>
+                <button type="submit" class="btn btn-primary btn-full">Create Account</button>
+            </form>
         </div>
     </div>
     <script src="authorization.js"></script>

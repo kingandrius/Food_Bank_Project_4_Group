@@ -4,10 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Food Bank Management System - Dashboard</title>
-    
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="layout.css">
-    <link rel="stylesheet" href="dashboard.css">
 </head>
 <body>
     <div class="app-container">
@@ -50,69 +47,60 @@
                             <span>Volunteers</span>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a href="reports.html" class="nav-link">
-                            <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
-                            </svg>
-                            <span>Reports</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="settings.html" class="nav-link">
-                            <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
-                            </svg>
-                            <span>Settings</span>
-                        </a>
-                    </li>
                 </ul>
             </nav>
         </aside>
 
         <main class="main-content">
             <div class="page-container">
-                <div class="page-header" style="margin-bottom: 2.5rem;">
+                <div class="page-header">
                     <h1 class="page-title" id="welcomeHeading">Welcome Back, Admin</h1>
-                    <p class="page-subtitle" id="userGreeting">Here's what's happening at the food bank today.</p>
+                    <p class="page-subtitle">Here's what's happening at the food bank today.</p>
                 </div>
 
                 <div class="stock-grid" style="margin-bottom: 2.5rem;">
-                    <div class="stock-card">
+                    <div class="stock-card" style="border-left: 4px solid var(--primary-brand);">
                         <h3 class="stock-name">Total Items</h3>
-                        <p class="stock-quantity" id="totalItems">0</p>
+                        <div class="stock-quantity-wrapper">
+                            <p class="stock-quantity" id="totalItems">0</p>
+                        </div>
                     </div>
-                    <div class="stock-card">
+                    <div class="stock-card" style="border-left: 4px solid var(--color-low-stock);">
                         <h3 class="stock-name">Low Stock Alert</h3>
-                        <p class="stock-quantity" id="lowStock">0</p>
+                        <div class="stock-quantity-wrapper">
+                            <p class="stock-quantity" id="lowStock">0</p>
+                        </div>
                     </div>
-                    <div class="stock-card">
+                    <div class="stock-card" style="border-left: 4px solid var(--primary-accent);">
                         <h3 class="stock-name">Active Volunteers</h3>
-                        <p class="stock-quantity" id="activeVolunteers">0</p>
+                        <div class="stock-quantity-wrapper">
+                            <p class="stock-quantity" id="activeVolunteers">0</p>
+                        </div>
                     </div>
-                    <div class="stock-card">
+                    <div class="stock-card" style="border-left: 4px solid var(--color-warning);">
                         <h3 class="stock-name">Scheduled Today</h3>
-                        <p class="stock-quantity" id="scheduledToday">0</p>
+                        <div class="stock-quantity-wrapper">
+                            <p class="stock-quantity" id="scheduledToday">0</p>
+                        </div>
                     </div>
                 </div>
 
                 <div id="dynamicAlertsContainer" style="margin-bottom: 2.5rem;"></div>
 
-                <div class="inventory-summary-section">
-                    <h2 class="section-title" style="margin-bottom: 1.5rem;">Stock Overview</h2>
+                <div class="inventory-summary-section" style="margin-bottom: 2.5rem;">
+                    <h2 class="page-title" style="font-size: 1.35rem; margin-bottom: 1.25rem;">Recent Inventory Activity</h2>
                     <div class="stock-grid" id="dynamicStockGrid"></div>
                 </div>
 
-                <div class="action-buttons">
-                    <a href="add-food.html" class="btn btn-primary" style="background-color: #38a169; color: white; padding: 0.75rem 1.5rem; text-decoration: none; border-radius: 6px; font-weight: 600;">Add New Food</a>
-                    <a href="inventory.html" class="btn btn-secondary" style="color: #4a5568; padding: 0.75rem 1.5rem; text-decoration: underline; font-weight: 600;">View Full Inventory</a>
+                <div class="action-buttons" style="display: flex; gap: 1rem;">
+                    <a href="add-food.html" class="btn btn-primary">Add New Food</a>
+                    <a href="inventory.html" class="btn btn-secondary">View Full Inventory</a>
                 </div>
             </div>
         </main>
     </div>
 
-    <script src="dashboard.js"></script>
     <script src="logout.js"></script>
+    <script src="dashboard.js"></script>
 </body>
 </html>

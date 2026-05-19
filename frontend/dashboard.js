@@ -1,33 +1,18 @@
-/**
- * FRONTEND USER INTERACTION SCRIPT
- * File Placement: frontend/dashboard.js
- */
-
 document.addEventListener('DOMContentLoaded', async function() {
     console.log('Dashboard script initializing...');
 
-    // FIXED: Read user's name from storage and greet them dynamically right away
+    // Read stored user string metadata parameters to adjust layout greetings
     const loggedInUser = localStorage.getItem('userName');
     const welcomeHeading = document.getElementById('welcomeHeading');
     if (loggedInUser && welcomeHeading) {
         welcomeHeading.textContent = `Welcome Back, ${loggedInUser}`;
     }
 
-    const currentPage = window.location.pathname.split('/').pop();
-    const navLinks = document.querySelectorAll('.nav-link');
     const STATS_URL = 'http://localhost:3000/dashboard/stats';
     const INVENTORY_URL = 'http://localhost:3000/dashboard/recent-inventory';
     const ALERTS_URL = 'http://localhost:3000/dashboard/alerts';
 
-    // 1. Manage Sidebar Selection Elements
-    navLinks.forEach(link => {
-        link.classList.remove('active');
-        if (link.getAttribute('href') === currentPage) {
-            link.classList.add('active');
-        }
-    });
-
-    // 2. Fetch Top Grid Summary Metrics
+    // 1. Fetch Summary Statistics Metrics Payload Values
     try {
         const statsResponse = await fetch(STATS_URL, { method: 'GET' });
         if (statsResponse.ok) {
@@ -41,7 +26,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         console.error('Error handling metrics display rendering layer:', statsError);
     }
 
-    // 3. Fetch Alerts
+    // 2. Fetch System Core Operational Warning Alert Collections
     try {
         const alertsResponse = await fetch(ALERTS_URL, { method: 'GET' });
         if (alertsResponse.ok) {
@@ -51,9 +36,9 @@ document.addEventListener('DOMContentLoaded', async function() {
                 alertsContainer.innerHTML = ''; 
                 alerts.forEach(alert => {
                     const alertHTML = `
-                        <div class="alert-banner alert-${alert.type}" style="margin-bottom: 1rem;">
+                        <div class="alert-banner alert-${alert.type}">
                             <span class="alert-icon">⚠️</span>
-                            <p class="alert-text">${alert.text}</p>
+                            <p class="alert-text" style="font-weight: 500; font-size: 0.95rem;">${alert.text}</p>
                         </div>
                     `;
                     alertsContainer.insertAdjacentHTML('beforeend', alertHTML);
@@ -64,7 +49,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         console.error('Error fetching dashboard alerts layers:', alertsError);
     }
 
-    // 4. Fetch Stock Items
+    // 3. Render Component Preview Elements Layer Loops
     try {
         const inventoryResponse = await fetch(INVENTORY_URL, { method: 'GET' });
         const stockGrid = document.getElementById('dynamicStockGrid');
@@ -79,22 +64,19 @@ document.addEventListener('DOMContentLoaded', async function() {
             }
 
             items.forEach(item => {
+                // Maps status configuration profiles cleanly to our variables rules setup
+                let statusClass = 'badge-good';
+                if (item.statusClass === 'status-low' || item.statusClass === 'badge-low') statusClass = 'badge-low';
+                if (item.statusClass === 'status-expiring' || item.statusClass === 'badge-expiring') statusClass = 'badge-expiring';
+
                 const cardHTML = `
                     <div class="stock-card">
-                        <div class="stock-icon-container">
-                            <div class="stock-icon-wrapper ${item.statusClass}">
-                                <svg class="stock-icon ${item.statusClass}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>
-                                </svg>
-                            </div>
-                        </div>
-                        <h3 class="stock-name">${item.name}</h3>
+                        <span class="badge ${statusClass}" style="position: absolute; top: 12px; right: 12px;">${item.badgeText || 'In Stock'}</span>
+                        <h3 class="stock-name" style="margin-top: 0.5rem; color: var(--text-muted);">${item.category || 'General'}</h3>
+                        <p style="font-weight: 700; font-size: 1.15rem; color: var(--text-main); margin-bottom: 0.75rem;">${item.name}</p>
                         <div class="stock-quantity-wrapper">
-                            <p class="stock-quantity">${item.quantity}</p>
-                            <span class="stock-unit">${item.unit}</span>
-                        </div>
-                        <div>
-                            <span class="badge badge-${item.statusClass}">${item.badgeText}</span>
+                            <span class="stock-quantity" style="font-size: 1.75rem;">${item.quantity}</span>
+                            <span class="stock-unit">units</span>
                         </div>
                     </div>
                 `;
@@ -103,9 +85,5 @@ document.addEventListener('DOMContentLoaded', async function() {
         }
     } catch (inventoryError) {
         console.error('Error drawing dynamic stock interface layers:', inventoryError);
-        const stockGrid = document.getElementById('dynamicStockGrid');
-        if (stockGrid) {
-            stockGrid.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: #e53e3e; padding: 2rem;">Failed to render live stock preview layers.</p>`;
-        }
     }
 });

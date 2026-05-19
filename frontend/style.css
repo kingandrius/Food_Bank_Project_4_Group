@@ -1,18 +1,27 @@
-/**
- * GLOBAL STYLES & FOUNDATION
- * Use: Colors, fonts, and base layouts for the entire app.
- */
+/* Import Google Fonts Typography */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
 
 :root {
-    --primary-green: #48bb78;
-    --primary-blue: #3182ce;
-    --text-dark: #1a202c;
-    --text-muted: #718096;
-    --bg-light: #f8fafc;
-    --white: #ffffff;
+    /* Main Theme Palettes */
+    --primary-brand: #2f855a;       /* Forest Emerald */
+    --primary-accent: #48bb78;      /* Mint Accent */
+    --bg-main: #f7fafc;             /* Soft Light Grey Canvas */
+    --bg-sidebar: #1a202c;          /* High-Contrast Off-Black Charcoal */
+    
+    /* Text Typography Variables */
+    --text-main: #2d3748;           /* Deep Slate Grey for Body Text */
+    --text-muted: #718096;          /* Muted Silver Grey */
+    
+    /* System Status Alerts */
+    --color-low-stock: #e53e3e;     /* Vibrant Crimson Red */
+    --color-warning: #dd6b20;       /* Warn Amber Orange */
+    --color-good: #38a169;          /* Emerald Green Success */
+    
+    /* Structural Borders */
     --border-color: #e2e8f0;
 }
 
+/* Base Document Reset */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -20,104 +29,379 @@
 }
 
 body {
-    font-family: 'Inter', -apple-system, sans-serif;
-    color: var(--text-dark);
-    background-color: var(--bg-light);
-    line-height: 1.5;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    -webkit-font-smoothing: antialiased;
 }
 
-/* --- Login & Auth Layout --- */
-.login-body {
+/* Layout Framework */
+.app-container {
     display: flex;
-    align-items: center;
-    justify-content: center;
     min-height: 100vh;
-}
-
-.auth-card {
-    background: var(--white);
-    padding: 2.5rem;
-    border-radius: 12px;
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
     width: 100%;
-    max-width: 400px;
-    border: 1px solid var(--border-color);
 }
 
-/* --- Tabs Styling (Fixes the "Wrong" Buttons) --- */
-.login-tab-container {
+.main-content {
+    flex: 1;
+    padding: 2.5rem;
+    overflow-y: auto;
+}
+
+.page-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Core Navigation Design */
+.sidebar {
+    width: 260px;
+    background-color: var(--bg-sidebar);
+    color: #ffffff;
     display: flex;
-    border-bottom: 1px solid var(--border-color);
+    flex-direction: column;
+    padding: 2rem 0;
+    border-right: 1px solid rgba(255, 255, 255, 0.05);
+    flex-shrink: 0;
+}
+
+.sidebar-header {
+    padding: 0 1.5rem 2rem 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
     margin-bottom: 1.5rem;
 }
 
-.login-tab {
+.sidebar-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #ffffff;
+    letter-spacing: -0.02em;
+}
+
+.sidebar-nav {
     flex: 1;
-    padding: 12px;
-    border: none;
-    background: none;
-    cursor: pointer;
+}
+
+.nav-list {
+    list-style: none;
+}
+
+.nav-item {
+    margin: 0.25rem 1rem;
+}
+
+.nav-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 0.75rem 1rem;
+    color: #a0aec0;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 500;
+    font-size: 0.95rem;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.nav-link:hover {
+    color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.nav-link.active {
+    color: #ffffff;
+    background-color: var(--primary-brand);
+}
+
+.nav-icon {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+}
+
+/* Interface Title Structures */
+.page-header {
+    margin-bottom: 2.5rem;
+}
+
+.page-title {
+    font-size: 1.85rem;
+    font-weight: 700;
+    color: var(--text-main);
+    letter-spacing: -0.02em;
+    margin-bottom: 0.5rem;
+}
+
+.page-subtitle {
+    color: var(--text-muted);
+    font-size: 1rem;
+}
+
+.card {
+    background-color: #ffffff;
+    border-radius: 20px;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 18px 50px rgba(36, 45, 66, 0.08);
+    padding: 2rem;
+    max-width: 900px;
+    width: 100%;
+}
+
+.form-grid {
+    display: grid;
+    gap: 1.5rem;
+}
+
+.form-actions {
+    margin-top: 1.5rem;
+}
+
+.form-label {
+    display: block;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-main);
+    margin-bottom: 0.5rem;
+}
+
+.form-input {
+    width: 100%;
+    padding: 0.85rem 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    font-family: inherit;
+    font-size: 0.95rem;
+    color: var(--text-main);
+    background-color: #ffffff;
+    transition: all 0.2s ease;
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: var(--primary-accent);
+    box-shadow: 0 0 0 4px rgba(72, 187, 120, 0.12);
+}
+
+.page-container {
+    max-width: 980px;
+    width: 100%;
+}
+
+/* Standard Layout Metric Cards */
+.stock-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.5rem;
+}
+
+.stock-card {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.03), 0 2px 4px -1px rgba(0, 0, 0, 0.02);
+    border: 1px solid var(--border-color);
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.stock-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+}
+
+.stock-name {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
     color: var(--text-muted);
     font-weight: 600;
-    font-size: 1rem;
-    transition: all 0.2s;
-    border-bottom: 2px solid transparent;
+    margin-bottom: 0.5rem;
 }
 
-.login-tab.active {
-    color: var(--primary-blue);
-    border-bottom: 2px solid var(--primary-blue);
+.stock-quantity-wrapper {
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
 }
 
-/* --- Form Elements --- */
+.stock-quantity {
+    font-size: 2.25rem;
+    font-weight: 700;
+    color: var(--text-main);
+    line-height: 1;
+}
+
+.stock-unit {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+/* Semantic Badge Components */
+.badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+}
+
+.badge-low, .status-low {
+    background-color: #fff5f5;
+    color: var(--color-low-stock);
+}
+
+.badge-expiring, .status-expiring {
+    background-color: #fffaf0;
+    color: var(--color-warning);
+}
+
+.badge-good, .status-good {
+    background-color: #f0fff4;
+    color: var(--color-good);
+}
+
+/* Functional Dashboard Banners */
+.alert-banner {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 1rem 1.25rem;
+    border-radius: 8px;
+    border-left: 4px solid transparent;
+}
+
+.alert-warning {
+    background-color: #fffaf0;
+    border-left-color: var(--color-warning);
+    color: #c05621;
+}
+
+.alert-alert {
+    background-color: #fff5f5;
+    border-left-color: var(--color-low-stock);
+    color: #c53030;
+}
+
+/* Modernized Grid Tables */
+.table-container {
+    background: #ffffff;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.03);
+    overflow: hidden;
+    margin-bottom: 2rem;
+}
+
+.inventory-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+.inventory-table th {
+    background-color: #f8fafc;
+    padding: 1rem 1.5rem;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.inventory-table td {
+    padding: 1rem 1.5rem;
+    font-size: 0.95rem;
+    color: var(--text-main);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.inventory-table tr:last-child td {
+    border-bottom: none;
+}
+
+.inventory-table tr:hover td {
+    background-color: #f8fafc;
+}
+
+/* Forms Framework */
 .form-group {
-    margin-bottom: 1.25rem;
+    margin-bottom: 1.5rem;
 }
 
 .form-label {
     display: block;
     font-size: 0.875rem;
     font-weight: 600;
+    color: var(--text-main);
     margin-bottom: 0.5rem;
 }
 
 .form-input {
     width: 100%;
-    padding: 0.75rem;
+    padding: 0.75rem 1rem;
     border: 1px solid var(--border-color);
-    border-radius: 6px;
-    font-size: 1rem;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 0.95rem;
+    color: var(--text-main);
+    background-color: #ffffff;
+    transition: all 0.2s ease;
 }
 
-/* --- Buttons --- */
+.form-input:focus {
+    outline: none;
+    border-color: var(--primary-accent);
+    box-shadow: 0 0 0 3px rgba(72, 187, 120, 0.15);
+}
+
+/* Interaction Button Elements */
 .btn {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
     padding: 0.75rem 1.5rem;
     border-radius: 8px;
     font-weight: 600;
-    text-align: center;
+    font-size: 0.95rem;
     cursor: pointer;
     border: none;
-    transition: filter 0.2s;
+    font-family: inherit;
+    transition: all 0.2s ease;
+    text-decoration: none;
 }
 
-.btn-primary { background-color: var(--primary-green); color: white; }
-.btn-primary:hover { filter: brightness(95%); }
-.btn-full { width: 100%; }
-
-/* --- Footer & Tagline --- */
-.login-tagline {
-    margin-top: 2rem;
-    text-align: center;
+.btn-primary {
+    background-color: var(--primary-brand);
+    color: #ffffff;
 }
 
-.login-tagline-text {
-    font-size: 0.875rem;
-    color: var(--text-muted);
-    font-style: italic;
+.btn-primary:hover {
+    background-color: #22543d;
 }
 
-/* --- Utilities --- */
-.text-center { text-align: center; }
-.mb-1 { margin-bottom: 0.25rem; }
-.mb-6 { margin-bottom: 1.5rem; }
+.btn-secondary {
+    background-color: #edf2f7;
+    color: #4a5568;
+}
+
+.btn-secondary:hover {
+    background-color: #e2e8f0;
+}
+
+.btn-logout {
+    margin-top: auto;
+    background-color: transparent;
+    color: #fc8181;
+    justify-content: flex-start;
+}
+
+.btn-logout:hover {
+    background-color: rgba(252, 129, 129, 0.1);
+    color: #fff;
+}
