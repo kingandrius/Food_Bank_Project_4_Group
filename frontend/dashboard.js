@@ -6,6 +6,13 @@
 document.addEventListener('DOMContentLoaded', async function() {
     console.log('Dashboard script initializing...');
 
+    // FIXED: Read user's name from storage and greet them dynamically right away
+    const loggedInUser = localStorage.getItem('userName');
+    const welcomeHeading = document.getElementById('welcomeHeading');
+    if (loggedInUser && welcomeHeading) {
+        welcomeHeading.textContent = `Welcome Back, ${loggedInUser}`;
+    }
+
     const currentPage = window.location.pathname.split('/').pop();
     const navLinks = document.querySelectorAll('.nav-link');
     const STATS_URL = 'http://localhost:3000/dashboard/stats';
@@ -30,52 +37,44 @@ document.addEventListener('DOMContentLoaded', async function() {
             if (document.getElementById('activeVolunteers')) document.getElementById('activeVolunteers').textContent = stats.activeVolunteers;
             if (document.getElementById('scheduledToday')) document.getElementById('scheduledToday').textContent = stats.scheduledToday;
         }
-    } catch (err) {
-        console.error('Failed to link live server summary statistics:', err);
+    } catch (statsError) {
+        console.error('Error handling metrics display rendering layer:', statsError);
     }
 
-    // 3. Fetch and Render Live Alerts Banners
-    const alertsContainer = document.getElementById('dynamicAlertsContainer');
-    if (alertsContainer) {
-        try {
-            const alertsResponse = await fetch(ALERTS_URL, { method: 'GET' });
-            if (alertsResponse.ok) {
-                const alerts = await alertsResponse.json();
-                alertsContainer.innerHTML = ''; // Clear old content
-
+    // 3. Fetch Alerts
+    try {
+        const alertsResponse = await fetch(ALERTS_URL, { method: 'GET' });
+        if (alertsResponse.ok) {
+            const alerts = await alertsResponse.json();
+            const alertsContainer = document.getElementById('dynamicAlertsContainer');
+            if (alertsContainer) {
+                alertsContainer.innerHTML = ''; 
                 alerts.forEach(alert => {
-                    const iconPath = alert.type === 'warning' 
-                        ? 'M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z'
-                        : 'M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z';
-
                     const alertHTML = `
-                        <div class="notification notification-${alert.type}">
-                            <svg class="notification-icon ${alert.type}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="${iconPath}"/>
-                            </svg>
-                            <p class="notification-text">${alert.text}</p>
+                        <div class="alert-banner alert-${alert.type}" style="margin-bottom: 1rem;">
+                            <span class="alert-icon">⚠️</span>
+                            <p class="alert-text">${alert.text}</p>
                         </div>
                     `;
                     alertsContainer.insertAdjacentHTML('beforeend', alertHTML);
                 });
             }
-        } catch (alertErr) {
-            console.error('Failed to sync dynamic layout notification states:', alertErr);
         }
+    } catch (alertsError) {
+        console.error('Error fetching dashboard alerts layers:', alertsError);
     }
 
-    // 4. Fetch and Loop Live Stock Overview Inventory Cards
-    const stockGrid = document.getElementById('dynamicStockGrid');
-    if (stockGrid) {
-        try {
-            const inventoryResponse = await fetch(INVENTORY_URL, { method: 'GET' });
-            if (!inventoryResponse.ok) throw new Error('Could not load inventory database streams.');
-            
+    // 4. Fetch Stock Items
+    try {
+        const inventoryResponse = await fetch(INVENTORY_URL, { method: 'GET' });
+        const stockGrid = document.getElementById('dynamicStockGrid');
+        
+        if (inventoryResponse.ok && stockGrid) {
             const items = await inventoryResponse.json();
             stockGrid.innerHTML = ''; 
 
             if (items.length === 0) {
-                stockGrid.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: #718096; padding: 2rem;">No inventory records found in the system database.</p>`;
+                stockGrid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: var(--text-muted); padding: 2rem;">No inventory records available.</p>';
                 return;
             }
 
@@ -101,8 +100,11 @@ document.addEventListener('DOMContentLoaded', async function() {
                 `;
                 stockGrid.insertAdjacentHTML('beforeend', cardHTML);
             });
-        } catch (inventoryError) {
-            console.error('Error drawing dynamic stock interface layers:', inventoryError);
+        }
+    } catch (inventoryError) {
+        console.error('Error drawing dynamic stock interface layers:', inventoryError);
+        const stockGrid = document.getElementById('dynamicStockGrid');
+        if (stockGrid) {
             stockGrid.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: #e53e3e; padding: 2rem;">Failed to render live stock preview layers.</p>`;
         }
     }

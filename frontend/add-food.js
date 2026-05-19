@@ -26,21 +26,21 @@ document.addEventListener('DOMContentLoaded', function() {
             // 3. Collect the data from HTML Form inputs
             const formData = new FormData(addFoodForm);
             
-            // KEY SYNC: Maps frontend input names to what items.js expects: { name, quantity, expiration_date }
+            // FIXED: Added 'category' so the dropdown choice is sent to the backend!
             const foodData = {
                 name: formData.get('foodName'),
                 quantity: parseInt(formData.get('quantity'), 10),
                 expiration_date: formData.get('expiryDate'),
-                
+                category: formData.get('category') 
             };
 
             try {
-                // 4. Dispatch data to backend API server
+                // 4. Dispatch data to backend API
                 const response = await fetch(API_URL, {
                     method: 'POST',
                     headers: {
-                        'Authorization': token, // fixed bearer validation parser handles this nicely
-                        'Content-Type': 'application/json'
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}` // Passes secure token verification
                     },
                     body: JSON.stringify(foodData)
                 });
@@ -48,10 +48,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 const data = await response.json();
 
                 if (!response.ok) {
-                    throw new Error(data.message || 'Failed to save food item.');
+                    throw new Error(data.message || 'Server rejected food entry submission request.');
                 }
 
-                // 5. Success! Reset form inputs and notify the user
+                // 5. Notify the user
                 console.log('Food added to database:', data);
                 addFoodForm.reset();
                 alert('Food item added successfully to database inventory!');

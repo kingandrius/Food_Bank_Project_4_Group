@@ -2,8 +2,8 @@
  * ROLE PERMISSION HIERARCHY
  * -------------------------
  * Role 1 (Admin): Full system access. Can promote Volunteers to Managers.
- * Role 2 (Manager): Handles scheduling and volunteer coordination.
- * Role 3 (Volunteer): Default role. Can edit food quantities and sign up for shifts.
+ * Role 2 (Volunteer): Default role assigned when creating an account.
+ * Role 3 (Manager): Handles scheduling, inventory, and volunteer coordination.
  * * Logic: Use these IDs to toggle the 'hidden' attribute on sidebar links.
  */
 document.addEventListener('DOMContentLoaded', () => {
@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- LOGIN LOGIC ---
     loginForm.addEventListener('submit', async (e) => {
         e.preventDefault();
-        
+
         const email = document.getElementById('loginEmail').value;
         const password = document.getElementById('loginPassword').value;
 
@@ -50,7 +50,13 @@ document.addEventListener('DOMContentLoaded', () => {
             const data = await response.json();
 
             if (response.ok) {
+                // 1. Save authentication token
                 localStorage.setItem('token', data.token);
+
+                // 2. Save the username so the dashboard can greet them by name!
+                localStorage.setItem('userName', data.user.name);
+
+                // 3. Forward the user to the main layout dashboard
                 window.location.href = 'dashboard.html';
             } else {
                 alert(data.message || 'Login failed');

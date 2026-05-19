@@ -28,15 +28,15 @@ const verifyToken = (req, res, next) => {
 // Create new inventory item
 router.post('/addnew', verifyToken, async (req, res) => {
     try {
-        const { name, quantity, expiration_date } = req.body;
+        const { name, quantity, expiration_date, category } = req.body;
 
-        if (!name || quantity === undefined || !expiration_date) {
+        if (!name || quantity === undefined || !expiration_date || !category) {
             return res.status(400).json({ message: 'All fields are required.' });
         }
 
         const newItem = await pool.query(
-            'INSERT INTO inventory_item (item_name, quantity, expiration_date) VALUES ($1, $2, $3) RETURNING item_id AS id, item_name AS name, quantity, expiration_date',
-            [name, quantity, expiration_date]
+            'INSERT INTO inventory_item (item_name, quantity, expiration_date, category) VALUES ($1, $2, $3, $4) RETURNING item_id AS id, item_name AS name, quantity, expiration_date, category',
+            [name, quantity, expiration_date, category]
         );
 
         res.status(201).json(newItem.rows[0]);
@@ -51,7 +51,13 @@ router.post('/addnew', verifyToken, async (req, res) => {
 router.get('/', verifyToken, async (req, res) => {
     try {
         const items = await pool.query(
-            'SELECT item_id AS id, item_name AS name, quantity, expiration_date FROM inventory_item'
+            `SELECT i.item_id AS id,
+                    i.item_name AS name,
+                    i.quantity,
+                    i.expiration_date,
+                    COALESCE(i.category, c.name, 'General') AS category
+             FROM public.inventory_item i
+             LEFT JOIN public.category c ON i.category_id = c.category_id`
         );
         res.status(200).json(items.rows);
     } catch (err) {
