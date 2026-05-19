@@ -13,6 +13,15 @@ const app = express();
 // Middleware
 app.use(cors());
 app.use(express.json());
+const path = require('path');
+
+// Serve frontend static files
+app.use(express.static(path.join(__dirname, '..', 'frontend')));
+
+// Ensure root serves the frontend index.html
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, '..', 'frontend', 'index.html'));
+});
 
 // 2. Mount your Routes
 app.use('/auth', authRouter);

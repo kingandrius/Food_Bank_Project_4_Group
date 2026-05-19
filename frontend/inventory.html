@@ -20,8 +20,40 @@
             </nav>
         </aside>
         <main class="main-content">
-            </main>
+            <div class="page-container">
+                <div class="page-header">
+                    <h1 class="page-title">Inventory</h1>
+                    <p class="page-subtitle">Manage stock levels and review expirations.</p>
+                </div>
+
+                <section class="card">
+                    <div style="display:flex; justify-content: space-between; align-items:center; margin-bottom: 1rem;">
+                        <input id="searchInput" type="search" placeholder="Search inventory..." style="padding:8px 12px; width:280px; border-radius:6px; border:1px solid #e2e8f0;">
+                        <a href="add-food.html" class="btn btn-primary">Add New Food</a>
+                    </div>
+
+                    <div style="overflow:auto;">
+                        <table class="table" style="width:100%; border-collapse: collapse;">
+                            <thead>
+                                <tr style="text-align:left; color:var(--text-muted); font-size:0.9rem;">
+                                    <th>Name</th>
+                                    <th>Category</th>
+                                    <th>Quantity</th>
+                                    <th>Expiration</th>
+                                    <th>Status</th>
+                                    <th style="text-align:center;">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="inventoryTableBody">
+                                <!-- populated by inventory.js -->
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+        </main>
     </div>
     <script src="logout.js"></script>
+    <script src="inventory.js"></script>
 </body>
 </html>
