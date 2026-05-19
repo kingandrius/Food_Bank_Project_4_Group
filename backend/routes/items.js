@@ -32,9 +32,27 @@ router.post('/addnew', verifyToken, async (req, res) => {
             return res.status(400).json({ message: 'All fields are required.' });
         }
 
-        // FIXED: Added the 'category' column name and $4 argument marker to the insertion parameters
+        // Check if an item with same name and category already exists
+        const existing = await pool.query(
+            'SELECT item_id, item_name, quantity, expiration_date, category FROM public.inventory_item WHERE item_name = $1 AND category = $2',
+            [name, category]
+        );
+
+        if (existing.rows.length > 0) {
+            const existingItem = existing.rows[0];
+            const updatedQuantity = Number(existingItem.quantity) + Number(quantity);
+
+            const updated = await pool.query(
+                'UPDATE public.inventory_item SET quantity = $1 WHERE item_id = $2 RETURNING item_id AS id, item_name AS name, quantity, expiration_date, category',
+                [updatedQuantity, existingItem.item_id]
+            );
+
+            return res.status(200).json(updated.rows[0]);
+        }
+
+        // No existing item — insert new
         const newItem = await pool.query(
-            'INSERT INTO public.inventory_item (item_name, quantity, expiration_date, category) VALUES ($1, $2, $3, $4) RETURNING *',
+            'INSERT INTO public.inventory_item (item_name, quantity, expiration_date, category) VALUES ($1, $2, $3, $4) RETURNING item_id AS id, item_name AS name, quantity, expiration_date, category',
             [name, quantity, expiration_date, category]
         );
 
